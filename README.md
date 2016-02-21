@@ -1,6 +1,7 @@
 #BenGorFileBundle
 > Fully featured and test covered user Symfony bundle built on top of [BenGorFile][7] library
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/ce050451-ac21-4799-bb76-d767df157264/mini.png)](https://insight.sensiolabs.com/projects/ce050451-ac21-4799-bb76-d767df157264)
 [![Build Status](https://travis-ci.org/BenGor/FileBundle.svg?branch=master)](https://travis-ci.org/BenGor/FileBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/BenGor/FileBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/BenGor/FileBundle/?branch=master)
 [![Total Downloads](https://poser.pugx.org/bengor/file-bundle/downloads)](https://packagist.org/packages/bengor/file-bundle)
