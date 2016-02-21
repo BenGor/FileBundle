@@ -1,0 +1,55 @@
+{
+    "name": "bengor/file-bundle",
+    "description": "Symfony bundle on top of BenGor's file library",
+    "keywords": ["file", "bundle", "ddd"],
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":                      ">=5.5",
+        "bengor/file":              "dev-master",
+        "symfony/form":             "^2.8|^3.0",
+        "symfony/framework-bundle": "^2.8|^3.0"
+    },
+    "require-dev": {
+        "fabpot/php-cs-fixer":      "^1.11",
+        "mmoreram/php-formatter":   "^1.1",
+        "phpspec/phpspec":          "^2.4"
+    },
+    "scripts": {
+        "cs": [
+            "php-formatter f:h:f src",
+            "php-formatter f:h:f spec",
+            "php-formatter f:u:s src",
+            "php-formatter f:u:s spec",
+            "php-cs-fixer fix --config-file=.php_cs",
+            "php-cs-fixer fix --config-file=.phpspec_cs"
+        ],
+        "test": "phpspec run"
+    },
+    "suggest": {
+        "knplabs/knp-gaufrette-bundle": "Required to use Gaufrette filesystem"
+    },
+    "autoload": {
+        "psr-4": {
+            "BenGor\\FileBundle\\": "src/BenGor/FileBundle/"
+        },
+        "exclude-from-classmap": ["/spec/"]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
