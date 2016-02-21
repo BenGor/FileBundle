@@ -14,8 +14,8 @@ public function registerBundles()
 }
 ```
 
-In order to use **Gaufrette** filesystem (it's recommended way over Symfony filesystem), you need to install,
-enable and configure the `knp-gaufrette-bundle` bundle so, you should follow the bundle's [documentation][1].
+>In order to use **Gaufrette** filesystem (it's recommended way over Symfony filesystem), you need to install,
+>enable and configure the `knplabs/knp-gaufrette-bundle` bundle so, you should follow the bundle's [documentation][1].
 
 Next, you have to configure the bundle to work with the specific needs of your application inside
 `app/config/config.yml`:
