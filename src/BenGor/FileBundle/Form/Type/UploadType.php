@@ -49,8 +49,10 @@ class UploadType extends AbstractType implements DataMapperInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UploadFileRequest::class,
-            'empty_data' => null,
+            'csrf_protection' => false,
+            'data_class'      => UploadFileRequest::class,
+            'empty_data'      => null,
+//            'inherit_data' => true,
         ]);
     }
 

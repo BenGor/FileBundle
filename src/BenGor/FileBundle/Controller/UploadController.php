@@ -14,6 +14,7 @@ namespace BenGor\FileBundle\Controller;
 
 use BenGor\File\Domain\Model\UploadedFileException;
 use BenGor\FileBundle\Form\Type\UploadType;
+use BenGor\FileBundle\Form\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,7 +41,10 @@ class UploadController extends Controller
             $form->handleRequest($request);
             if (true === $form->isValid()) {
                 try {
-                    $this->get('bengor_file.upload_image')->execute($form->getData());
+                    $manager = $this->getDoctrine()->getManager();
+                    $manager->persist($form->getData());
+                    $manager->flush();
+//                    $this->get('bengor_file.upload_image')->execute($form->getData());
                     $this->addFlash('notice', 'The upload process is successfully done');
                 } catch (UploadedFileException $exception) {
                     $this->addFlash('error', $exception->getMessage());
@@ -74,7 +78,7 @@ class UploadController extends Controller
             try {
                 $response = $this->get('bengor_file.upload_image')->execute($form->getData());
 
-                return new JsonResponse($response->file());
+                return new JsonResponse(['fileId' => $response->file()->id()->id()]);
             } catch (\Exception $exception) {
                 return new JsonResponse($exception->getMessage(), 400);
             }
