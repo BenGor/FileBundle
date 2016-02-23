@@ -12,7 +12,8 @@ only this file in mind.
 ben_gor_file:
     file_class:
         file:
-            gaufrette: already_configured_gaufrette_filesystem
+            filesystem:
+                gaufrette: already_configured_gaufrette_filesystem
 ```
 And for example if you execute the `bin/console debug:container | grep bengor_file.upload_image`
 you'll see the following:
@@ -24,9 +25,11 @@ Otherwise, if your `file_class` contains multiple choices for example something 
 ben_gor_file:
     file_class:
         pdf:
-            gaufrette: already_configured_gaufrette_filesystem
+            filesystem:
+                gaufrette: already_configured_gaufrette_filesystem
         image:
-            gaufrette: already_configured_gaufrette_filesystem
+            filesystem:
+                gaufrette: already_configured_gaufrette_filesystem
 ```
 the above command will print the following:
 ```bash
