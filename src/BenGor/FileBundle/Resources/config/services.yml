@@ -1,8 +1,8 @@
 services:
     bengpr.file_bundle.type.entity_hidden:
-        class: BenGor\FileBundle\Form\Type\EntityHiddenType
+        class: BenGor\FileBundle\Form\Type\FileIdType
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@bengor_file.doctrine_image_repository'
         tags:
             - { name: form.type }
 

@@ -64,14 +64,13 @@ class UploadType extends AbstractType implements DataMapperInterface
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'required' => false,
-            ])
             ->add('uploaded_file', UploadedFileType::class, [
                 'mapped' => false,
             ])
-            ->add('file', EntityHiddenType::class, [
-                'class'    => File::class,
+            ->add('name', TextType::class, [
+                'required' => false,
+            ])
+            ->add('file', FileIdType::class, [
                 'label'    => false,
                 'required' => false,
             ])
