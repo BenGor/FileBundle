@@ -12,6 +12,7 @@
 
 namespace BenGor\FileBundle\DependencyInjection\Compiler;
 
+use BenGor\File\Infrastructure\Application\Service\SqlSession;
 use Ddd\Application\Service\TransactionalApplicationService;
 use Ddd\Infrastructure\Application\Service\DoctrineSession;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -90,6 +91,11 @@ class TransactionalApplicationServicesCompilerPass implements CompilerPassInterf
      */
     private function loadSqlSession(ContainerBuilder $container)
     {
-        throw new \RuntimeException('The plain SQL does not support transactional operations yet. Please use Doctrine');
+        $container->register(
+            'bengor.file.infrastructure.application.service.sql_session',
+            SqlSession::class
+        )->addArgument(
+            new Reference('pdo')
+        )->setPublic(false);
     }
 }
