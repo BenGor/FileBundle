@@ -12,6 +12,7 @@ only this file in mind.
 ben_gor_file:
     file_class:
         file:
+            class: AppBundle\Entity\File
             filesystem:
                 gaufrette: already_configured_gaufrette_filesystem
 ```
@@ -24,10 +25,12 @@ Otherwise, if your `file_class` contains multiple choices for example something 
 ```yml
 ben_gor_file:
     file_class:
+        class: AppBundle\Entity\Pdf
         pdf:
             filesystem:
                 gaufrette: already_configured_gaufrette_filesystem
         image:
+            class: AppBundle\Entity\Image
             filesystem:
                 gaufrette: already_configured_gaufrette_filesystem
 ```

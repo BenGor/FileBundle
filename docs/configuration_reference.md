@@ -5,7 +5,7 @@ All available configuration options are listed below with their default values.
 ben_gor_file:
     file_class:
         file:
-            class: BenGor\File\Domain\Model\File
+            class: ~                                        # Required
             persistence: doctrine                           # Also, it can be "sql"
             filesystem:
                 gaufrette: ~                                # Already configured Gaufrette filesystem
