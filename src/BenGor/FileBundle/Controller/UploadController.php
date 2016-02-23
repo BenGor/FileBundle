@@ -36,8 +36,9 @@ class UploadController extends Controller
      */
     public function nonAjaxAction(Request $request)
     {
-        $form = $this->createForm(UploadType::class);
+        $form = $this->createForm(UserType::class);
         if (true === $request->isMethod('POST')) {
+//            dump($request);die;
             $form->handleRequest($request);
             if (true === $form->isValid()) {
                 try {
@@ -49,7 +50,8 @@ class UploadController extends Controller
                 } catch (UploadedFileException $exception) {
                     $this->addFlash('error', $exception->getMessage());
                 } catch (\Exception $exception) {
-                    $this->addFlash('error', 'An error occurred. Please contact with the administrator.');
+                    $this->addFlash('error', $exception->getMessage());
+//                    $this->addFlash('error', 'An error occurred. Please contact with the administrator.');
                 }
             }
         }
@@ -73,6 +75,7 @@ class UploadController extends Controller
         }
 
         $form = $this->createForm(UploadType::class);
+//        dump($request);die;
         $form->handleRequest($request);
         if (true === $form->isValid()) {
             try {

@@ -13,16 +13,13 @@
 namespace BenGor\FileBundle\Form\Type;
 
 use AppBundle\Entity\User;
-use BenGor\File\Application\Service\UploadFileRequest;
-use BenGor\File\Infrastructure\UploadedFile\Symfony\SymfonyUploadedFile;
+use BenGor\File\Domain\Model\File;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\DataMapperInterface;
-use Symfony\Component\Form\Extension\Core\Type\FileType as SymfonyFileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType //implements DataMapperInterface
+class UserType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -30,12 +27,16 @@ class UserType extends AbstractType //implements DataMapperInterface
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', TextType::class, [
-            ])
+            ->add('firstName', TextType::class)
             ->add('photo', UploadType::class, [
-//                'mapped' => false,
+                'mapped' => false
             ]);
-//            ->setDataMapper($this);
+//            ->add('photo', EntityHiddenType::class, array(
+//                'label' => false,
+//                'class' => File::class,
+//                'required' => false,
+//                'mapped' => false
+//            ));
     }
 
     /**
@@ -45,31 +46,6 @@ class UserType extends AbstractType //implements DataMapperInterface
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-//            'empty_data' => null,
         ]);
     }
-
-//    /**
-//     * {@inheritdoc}
-//     */
-//    public function mapDataToForms($data, $forms)
-//    {
-//        $forms = iterator_to_array($forms);
-//        $forms['firstName']->setData($data ? $data->name() : '');
-//        $forms['file']->setData($data ? $data->uploadedFile() : null);
-//    }
-//
-//    /**
-//     * {@inheritdoc}
-//     */
-//    public function mapFormsToData($forms, &$data)
-//    {
-//        $forms = iterator_to_array($forms);
-//        $data = new UploadFileRequest(
-//            new SymfonyUploadedFile(
-//                $forms['file']->getData()
-//            ),
-//            $forms['name']->getData()
-//        );
-//    }
 }

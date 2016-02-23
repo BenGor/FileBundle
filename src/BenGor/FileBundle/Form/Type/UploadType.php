@@ -13,7 +13,9 @@
 namespace BenGor\FileBundle\Form\Type;
 
 use BenGor\File\Application\Service\UploadFileRequest;
+use BenGor\File\Domain\Model\File;
 use BenGor\File\Infrastructure\UploadedFile\Symfony\SymfonyUploadedFile;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType as SymfonyFileType;
@@ -37,9 +39,15 @@ class UploadType extends AbstractType implements DataMapperInterface
             ->add('name', TextType::class, [
                 'required' => false,
             ])
-            ->add('file', SymfonyFileType::class, [
+            ->add('uploaded_file', SymfonyFileType::class, [
                 'mapped' => false,
             ])
+            ->add('file', EntityHiddenType::class, array(
+                'label' => false,
+                'class' => File::class,
+                'required' => false,
+//                'mapped' => false
+            ))
             ->setDataMapper($this);
     }
 
@@ -52,7 +60,6 @@ class UploadType extends AbstractType implements DataMapperInterface
             'csrf_protection' => false,
             'data_class'      => UploadFileRequest::class,
             'empty_data'      => null,
-//            'inherit_data' => true,
         ]);
     }
 
@@ -63,7 +70,7 @@ class UploadType extends AbstractType implements DataMapperInterface
     {
         $forms = iterator_to_array($forms);
         $forms['name']->setData($data ? $data->name() : '');
-        $forms['file']->setData($data ? $data->uploadedFile() : null);
+        $forms['uploaded_file']->setData($data ? $data->uploadedFile() : null);
     }
 
     /**
@@ -74,7 +81,7 @@ class UploadType extends AbstractType implements DataMapperInterface
         $forms = iterator_to_array($forms);
         $data = new UploadFileRequest(
             new SymfonyUploadedFile(
-                $forms['file']->getData()
+                $forms['uploaded_file']->getData()
             ),
             $forms['name']->getData()
         );
