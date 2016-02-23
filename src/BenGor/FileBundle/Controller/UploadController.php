@@ -38,20 +38,17 @@ class UploadController extends Controller
     {
         $form = $this->createForm(UserType::class);
         if (true === $request->isMethod('POST')) {
-//            dump($request);die;
             $form->handleRequest($request);
             if (true === $form->isValid()) {
                 try {
                     $manager = $this->getDoctrine()->getManager();
                     $manager->persist($form->getData());
                     $manager->flush();
-//                    $this->get('bengor_file.upload_image')->execute($form->getData());
                     $this->addFlash('notice', 'The upload process is successfully done');
                 } catch (UploadedFileException $exception) {
                     $this->addFlash('error', $exception->getMessage());
                 } catch (\Exception $exception) {
                     $this->addFlash('error', $exception->getMessage());
-//                    $this->addFlash('error', 'An error occurred. Please contact with the administrator.');
                 }
             }
         }
@@ -75,7 +72,6 @@ class UploadController extends Controller
         }
 
         $form = $this->createForm(UploadType::class);
-//        dump($request);die;
         $form->handleRequest($request);
         if (true === $form->isValid()) {
             try {

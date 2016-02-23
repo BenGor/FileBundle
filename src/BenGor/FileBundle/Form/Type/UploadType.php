@@ -14,13 +14,16 @@ namespace BenGor\FileBundle\Form\Type;
 
 use BenGor\File\Application\Service\UploadFileRequest;
 use BenGor\File\Domain\Model\File;
-use BenGor\File\Infrastructure\UploadedFile\Symfony\SymfonyUploadedFile;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use BenGor\File\Domain\Model\FileId;
+use BenGor\File\Domain\Model\FileRepository;
+use BenGor\File\Infrastructure\UploadedFile\Symfony\SymfonyUploadedFile as UploadedFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
-use Symfony\Component\Form\Extension\Core\Type\FileType as SymfonyFileType;
+use Symfony\Component\Form\Extension\Core\Type\FileType as UploadedFileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -31,6 +34,31 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UploadType extends AbstractType implements DataMapperInterface
 {
     /**
+     * The fully qualified class
+     * name of the form data class.
+     *
+     * @var string
+     */
+    private $dataClass;
+
+    /**
+     * The file repository.
+     *
+     * @var FileRepository
+     */
+    private $repository;
+
+    /**
+     * Constructor.
+     *
+     * @param FileRepository $repository The file repository
+     */
+    public function __construct(FileRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -39,16 +67,20 @@ class UploadType extends AbstractType implements DataMapperInterface
             ->add('name', TextType::class, [
                 'required' => false,
             ])
-            ->add('uploaded_file', SymfonyFileType::class, [
+            ->add('uploaded_file', UploadedFileType::class, [
                 'mapped' => false,
             ])
-            ->add('file', EntityHiddenType::class, array(
-                'label' => false,
-                'class' => File::class,
+            ->add('file', EntityHiddenType::class, [
+                'class'    => File::class,
+                'label'    => false,
                 'required' => false,
-//                'mapped' => false
-            ))
-            ->setDataMapper($this);
+            ])
+            ->setDataMapper($this)
+            ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+                $this->dataClass = null === $event->getForm()->get('file')->getData()
+                    ? UploadFileRequest::class
+                    : File::class;
+            });
     }
 
     /**
@@ -58,7 +90,7 @@ class UploadType extends AbstractType implements DataMapperInterface
     {
         $resolver->setDefaults([
             'csrf_protection' => false,
-            'data_class'      => UploadFileRequest::class,
+            'data_class'      => $this->dataClass,
             'empty_data'      => null,
         ]);
     }
@@ -79,11 +111,20 @@ class UploadType extends AbstractType implements DataMapperInterface
     public function mapFormsToData($forms, &$data)
     {
         $forms = iterator_to_array($forms);
-        $data = new UploadFileRequest(
-            new SymfonyUploadedFile(
-                $forms['uploaded_file']->getData()
-            ),
-            $forms['name']->getData()
-        );
+
+        if (!$forms['file']->getData()) {
+            $data = new UploadFileRequest(
+                new UploadedFile(
+                    $forms['uploaded_file']->getData()
+                ),
+                $forms['name']->getData()
+            );
+        } else {
+            $data = $this->repository->fileOfId(
+                new FileId(
+                    $forms['file']->getData()
+                )
+            );
+        }
     }
 }

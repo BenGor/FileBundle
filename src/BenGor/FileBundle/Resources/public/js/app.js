@@ -7,7 +7,6 @@
       form = this,
       formData = new FormData();
 
-//    $(form).find('input').each(function () {
     $(this).find('input[id*=user_photo]').each(function () {
       var input = $(this).get(0);
 

@@ -28,15 +28,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class)
-            ->add('photo', UploadType::class, [
-                'mapped' => false
-            ]);
-//            ->add('photo', EntityHiddenType::class, array(
-//                'label' => false,
-//                'class' => File::class,
-//                'required' => false,
-//                'mapped' => false
-//            ));
+            ->add('photo', UploadType::class);
     }
 
     /**
