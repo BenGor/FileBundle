@@ -14,7 +14,7 @@ public function registerBundles()
 }
 ```
 
-After that, you need to extend our `BenGor\UserBundle\Model\User` class in order to build the Doctrine mapping properly.
+After that, you need to extend our `BenGor\File\Domain\Model\File` class in order to build the Doctrine mapping properly.
 The following snippet is the minimum code that bundle needs to work.
 ```php
 <?php
