@@ -7,7 +7,7 @@
 # file that was distributed with this source code.
 
 BenGor\File\Domain\Model\File:
-    type: entity
+    type: mappedSuperclass
     repositoryClass: BenGor\File\Infrastructure\Persistence\Doctrine\DoctrineFileRepository
     table: file
     uniqueConstraints:

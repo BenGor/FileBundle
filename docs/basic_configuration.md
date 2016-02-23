@@ -14,7 +14,26 @@ public function registerBundles()
 }
 ```
 
->In order to use **Gaufrette** filesystem (it's recommended way over Symfony filesystem), you need to install,
+After that, you need to extend our `BenGor\UserBundle\Model\User` class in order to build the Doctrine mapping properly.
+The following snippet is the minimum code that bundle needs to work.
+```php
+<?php
+
+namespace AppBundle\Entity;
+
+use BenGor\File\Domain\Model\File as BaseFile;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="bengor_file")
+ */
+class File extends BaseFile
+{
+}
+```
+
+>Keep in mind that to use **Gaufrette** filesystem (it's recommended way over Symfony filesystem), you need to install,
 >enable and configure the `knplabs/knp-gaufrette-bundle` bundle so, you should follow the bundle's [documentation][1].
 
 Next, you have to configure the bundle to work with the specific needs of your application inside
@@ -23,6 +42,7 @@ Next, you have to configure the bundle to work with the specific needs of your a
 ben_gor_file:
     file_class:
         file:
+            class: AppBundle\Entity\File
             filesystem:
                 gaufrette: already_configured_gaufrette_filesystem
 ```
