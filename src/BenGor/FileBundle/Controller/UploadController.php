@@ -12,8 +12,9 @@
 
 namespace BenGor\FileBundle\Controller;
 
+use BenGor\File\Application\Service\UploadFileRequest;
 use BenGor\File\Domain\Model\UploadedFileException;
-use BenGor\FileBundle\Form\Type\UploadType;
+use BenGor\FileBundle\Form\Type\FileType;
 use BenGor\FileBundle\Form\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
@@ -71,7 +72,7 @@ class UploadController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $form = $this->createForm(UploadType::class);
+        $form = $this->createForm(FileType::class, null, ['request' => UploadFileRequest::class]);
         $form->handleRequest($request);
         if (true === $form->isValid()) {
             try {

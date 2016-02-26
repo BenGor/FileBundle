@@ -31,7 +31,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class UploadType extends AbstractType implements DataMapperInterface
+class FileType extends AbstractType implements DataMapperInterface
 {
     /**
      * The fully qualified class
@@ -40,6 +40,14 @@ class UploadType extends AbstractType implements DataMapperInterface
      * @var string
      */
     private $dataClass;
+
+    /**
+     * The fully qualified class name of
+     * the application service request.
+     *
+     * @var string
+     */
+    private $request;
 
     /**
      * The file repository.
@@ -63,6 +71,8 @@ class UploadType extends AbstractType implements DataMapperInterface
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->request = $options['request'];
+
         $builder
             ->add('uploaded_file', UploadedFileType::class, [
                 'mapped' => false,
@@ -77,7 +87,7 @@ class UploadType extends AbstractType implements DataMapperInterface
             ->setDataMapper($this)
             ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
                 $this->dataClass = null === $event->getForm()->get('file')->getData()
-                    ? UploadFileRequest::class
+                    ? $this->request
                     : File::class;
             });
     }
@@ -91,6 +101,7 @@ class UploadType extends AbstractType implements DataMapperInterface
             'csrf_protection' => false,
             'data_class'      => $this->dataClass,
             'empty_data'      => null,
+            'request'         => UploadFileRequest::class,
         ]);
     }
 
@@ -112,7 +123,7 @@ class UploadType extends AbstractType implements DataMapperInterface
         $forms = iterator_to_array($forms);
 
         if (!$forms['file']->getData()) {
-            $data = new UploadFileRequest(
+            $data = new $this->request(
                 new UploadedFile(
                     $forms['uploaded_file']->getData()
                 ),

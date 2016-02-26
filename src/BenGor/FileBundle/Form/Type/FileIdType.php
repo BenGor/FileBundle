@@ -49,4 +49,15 @@ class FileIdType extends AbstractType
     {
         return HiddenType::class;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'request'=> null
+        ]);
+    }
+
 }

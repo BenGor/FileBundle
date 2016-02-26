@@ -13,6 +13,7 @@
 namespace BenGor\FileBundle\Form\Type;
 
 use AppBundle\Entity\User;
+use BenGor\File\Application\Service\UploadFileRequest;
 use BenGor\File\Domain\Model\File;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,7 +29,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class)
-            ->add('photo', UploadType::class);
+            ->add('photo', FileType::class);
     }
 
     /**

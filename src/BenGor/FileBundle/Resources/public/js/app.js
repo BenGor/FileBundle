@@ -12,13 +12,13 @@
 
       if (input.type == 'file') {
         if (input.files.length > 0) {
-          formData.append('upload[uploaded_file]', input.files[0]);
+          formData.append('file[uploaded_file]', input.files[0]);
         }
       } else {
         if (input.name === 'user[photo][name]') {
-          formData.append('upload[name]', input.value);
+          formData.append('file[name]', input.value);
         } else if (input.name === 'user[photo][file]') {
-          formData.append('upload[file]', input.value);
+          formData.append('file[file]', input.value);
         }
       }
     });

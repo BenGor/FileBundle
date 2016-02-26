@@ -7,7 +7,7 @@ services:
             - { name: form.type }
 
     bengpr.file_bundle.type.upload:
-        class: BenGor\FileBundle\Form\Type\UploadType
+        class: BenGor\FileBundle\Form\Type\FileType
         arguments:
             - '@bengor_file.doctrine_image_repository'
         tags:
