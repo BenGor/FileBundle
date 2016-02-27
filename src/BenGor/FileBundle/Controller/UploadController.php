@@ -13,9 +13,7 @@
 namespace BenGor\FileBundle\Controller;
 
 use BenGor\File\Application\Service\UploadFileRequest;
-use BenGor\File\Domain\Model\UploadedFileException;
 use BenGor\FileBundle\Form\Type\FileType;
-use BenGor\FileBundle\Form\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,54 +27,23 @@ use Symfony\Component\HttpFoundation\Request;
 class UploadController extends Controller
 {
     /**
-     * Upload action.
-     *
-     * @param Request $request The request
-     *
-     * @return JsonResponse
-     */
-    public function nonAjaxAction(Request $request)
-    {
-        $form = $this->createForm(UserType::class);
-        if (true === $request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if (true === $form->isValid()) {
-                try {
-                    $manager = $this->getDoctrine()->getManager();
-                    $manager->persist($form->getData());
-                    $manager->flush();
-                    $this->addFlash('notice', 'The upload process is successfully done');
-                } catch (UploadedFileException $exception) {
-                    $this->addFlash('error', $exception->getMessage());
-                } catch (\Exception $exception) {
-                    $this->addFlash('error', $exception->getMessage());
-                }
-            }
-        }
-
-        return $this->render('@BenGorFile/upload.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * Upload AJAX action.
      *
-     * @param Request $request The request
+     * @param Request $request   The request
+     * @param string  $fileClass Extra parameter that contains the file class
      *
      * @return JsonResponse
      */
-    public function ajaxAction(Request $request)
+    public function uploadAction(Request $request, $fileClass)
     {
         if (false === $request->isXmlHttpRequest()) {
             throw $this->createNotFoundException();
         }
-
         $form = $this->createForm(FileType::class, null, ['request' => UploadFileRequest::class]);
         $form->handleRequest($request);
         if (true === $form->isValid()) {
             try {
-                $response = $this->get('bengor_file.upload_image')->execute($form->getData());
+                $response = $this->get('bengor_file.upload_' . $fileClass)->execute($form->getData());
 
                 return new JsonResponse(['fileId' => $response->file()->id()->id()]);
             } catch (\Exception $exception) {

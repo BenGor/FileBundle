@@ -17,6 +17,7 @@ use BenGor\FileBundle\DependencyInjection\Compiler\ApplicationServicesCompilerPa
 use BenGor\FileBundle\DependencyInjection\Compiler\DomainServicesCompilerPass;
 use BenGor\FileBundle\DependencyInjection\Compiler\FilesystemServicesCompilerPass;
 use BenGor\FileBundle\DependencyInjection\Compiler\PersistenceServicesCompilerPass;
+use BenGor\FileBundle\DependencyInjection\Compiler\RoutesCompilerPass;
 use BenGor\FileBundle\DependencyInjection\Compiler\TransactionalApplicationServicesCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -41,6 +42,7 @@ class BenGorFileBundle extends Bundle
         $container->addCompilerPass(new ApplicationServicesCompilerPass());
         $container->addCompilerPass(new TransactionalApplicationServicesCompilerPass());
         $container->addCompilerPass(new AliasServicesCompilerPass());
+        $container->addCompilerPass(new RoutesCompilerPass());
 
         $container->loadFromExtension('doctrine', [
             'orm' => [

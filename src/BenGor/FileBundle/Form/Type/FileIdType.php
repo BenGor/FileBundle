@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of the BenGorFileBundle bundle.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BenGor\FileBundle\Form\Type;
 
 use BenGor\File\Domain\Model\FileRepository;
@@ -7,7 +17,6 @@ use BenGor\FileBundle\Form\DataTransformer\FileToFileIdTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * File id form type class.
@@ -49,15 +58,4 @@ class FileIdType extends AbstractType
     {
         return HiddenType::class;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'request'=> null
-        ]);
-    }
-
 }

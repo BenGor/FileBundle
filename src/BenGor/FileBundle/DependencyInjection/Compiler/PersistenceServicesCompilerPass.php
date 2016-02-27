@@ -22,8 +22,8 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * Register persistence services compiler pass.
  *
- * Service declaration via PHP allows more
- * flexibility with customization extend users.
+ * Service declaration via PHP allows
+ * more flexibility with easy customization.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */

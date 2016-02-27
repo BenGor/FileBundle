@@ -18,6 +18,7 @@ use BenGor\FileBundle\DependencyInjection\Compiler\ApplicationServicesCompilerPa
 use BenGor\FileBundle\DependencyInjection\Compiler\DomainServicesCompilerPass;
 use BenGor\FileBundle\DependencyInjection\Compiler\FilesystemServicesCompilerPass;
 use BenGor\FileBundle\DependencyInjection\Compiler\PersistenceServicesCompilerPass;
+use BenGor\FileBundle\DependencyInjection\Compiler\RoutesCompilerPass;
 use BenGor\FileBundle\DependencyInjection\Compiler\TransactionalApplicationServicesCompilerPass;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -65,6 +66,10 @@ class BenGorFileBundleSpec extends ObjectBehavior
 
         $container->addCompilerPass(
             Argument::type(AliasServicesCompilerPass::class)
+        )->shouldBeCalled()->willReturn($container);
+
+        $container->addCompilerPass(
+            Argument::type(RoutesCompilerPass::class)
         )->shouldBeCalled()->willReturn($container);
 
         $container->loadFromExtension('doctrine', [

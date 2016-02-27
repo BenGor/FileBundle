@@ -12,9 +12,13 @@
 
 namespace BenGor\FileBundle\DependencyInjection;
 
+use BenGor\FileBundle\Form\Type\FileIdType;
+use BenGor\FileBundle\Form\Type\FileType;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -34,7 +38,36 @@ class BenGorFileExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $loader->load('services.yml');
-
+        $this->loadForms($container, $config);
         $container->setParameter('bengor_file.config', $config);
+    }
+
+    /**
+     * Loads form types as a service inside Symfony DIC.
+     *
+     * @param ContainerBuilder $container The container
+     * @param array            $config    The bengor user configuration tree
+     */
+    private function loadForms(ContainerBuilder $container, $config)
+    {
+        foreach ($config['file_class'] as $key => $file) {
+            $container->setDefinition(
+                'bengor.file_bundle.form.type.file_id',
+                (new Definition(
+                    FileIdType::class, [
+                        new Reference('bengor_file.' . $file['persistence'] . '_' . $key . '_repository'),
+                    ]
+                ))->addTag('form.type')
+            );
+
+            $container->setDefinition(
+                'bengor.file_bundle.form.type.file',
+                (new Definition(
+                    FileType::class, [
+                        new Reference('bengor_file.' . $file['persistence'] . '_' . $key . '_repository'),
+                    ]
+                ))->addTag('form.type')
+            );
+        }
     }
 }

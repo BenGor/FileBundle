@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of the BenGorFileBundle bundle.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BenGor\FileBundle\Form\DataTransformer;
 
 use BenGor\File\Domain\Model\File;
@@ -37,9 +47,6 @@ class FileToFileIdTransformer implements DataTransformerInterface
      */
     public function transform($file)
     {
-        if (null === $file) {
-            return;
-        }
         if (!$file instanceof File) {
             throw new TransformationFailedException(
                 sprintf(
@@ -57,11 +64,8 @@ class FileToFileIdTransformer implements DataTransformerInterface
      */
     public function reverseTransform($id)
     {
-        if (null === $id) {
-            return null;
-        }
         $file = $this->repository->fileOfId(new FileId($id));
-        if (!$file instanceOf File) {
+        if (!$file instanceof File) {
             throw new TransformationFailedException(
                 sprintf('The given %s id does not match with any database file_id', $id)
             );

@@ -14,15 +14,15 @@ ben_gor_file:
                 upload:
                     enable: true
                     name: bengor_file_file_upload
-                    path: /file/upload
+                    path: /bengor-file/file/upload
                 overwrite:
                     enable: true
                     name: bengor_file_file_overwrite
-                    path: /file/overwrite
+                    path: /bengor-file/file/overwrite
                 remove:
                     enable: true
                     name: bengor_file_file_remove
-                    path: /file/remove
+                    path: /bengor-file/file/remove
 ```
 
 > **REMEMBER:** *Gaufrette* and *Symfony* filesystems are null by default, but one of these filesystems must
