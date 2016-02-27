@@ -5,9 +5,9 @@ related image. For this example we have:
  * *Doctrine* persistence layer
  * *Gaufrette* filesystem
  * Light **user entity** that contains a `firstName`, `lastName` and `image`
- * **Image entity** that extends BengorFile and it [limits mime types][limit_mime_types.md] to image mime types
+ * **Image entity** that extends BengorFile and it [limits mime types](limit_mime_types.md) to image mime types
 
-Before to start with this example we should follow the [**Basic configuration**][basic_configuration.md] chapter.
+Before to start with this example we should follow the [**Basic configuration**](basic_configuration.md) chapter.
 
 Now, we have to overwrite the `app/config/config.yml` *bengor_file* configuration block with the following info:
 ```yml
