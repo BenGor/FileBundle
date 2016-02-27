@@ -17,6 +17,7 @@ use BenGor\File\Infrastructure\Persistence\Sql\SqlFileRepository;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -37,6 +38,15 @@ class PersistenceServicesCompilerPass implements CompilerPassInterface
         $config = $container->getParameter('bengor_file.config');
 
         foreach ($config['file_class'] as $key => $file) {
+            if ('doctrine' === $file['persistence']
+                && !$container->hasDefinition('doctrine.orm.default_entity_manager')
+            ) {
+                throw new RuntimeException(
+                    'When the persistence layer is "doctrine" requires ' .
+                    'the installation and set up of the DoctrineBundle'
+                );
+            }
+
             $method = sprintf('load%sRepository', ucfirst($file['persistence']));
             $this->$method($container, $key, $file);
         }

@@ -39,6 +39,7 @@
         "test": "phpspec run"
     },
     "suggest": {
+        "doctrine/doctrine-bundle": "Required to use doctrine as persistence layer",
         "knplabs/knp-gaufrette-bundle": "Required to use Gaufrette filesystem"
     },
     "autoload": {
