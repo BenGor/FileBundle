@@ -3,8 +3,8 @@
 * [Basic configuration](basic_configuration.md)
 * Implementing features
     * [Multiple file entities](multiple_files.md)
-    * Limit *mime-types*
-    * Upload file
+    * [Limit *mime-types*][limit_mime_types.md]
+    * [Upload file][upload_file.md]
     * Overwrite file
     * Remove file
 * Reference

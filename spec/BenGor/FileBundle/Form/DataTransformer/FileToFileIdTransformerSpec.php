@@ -42,6 +42,11 @@ class FileToFileIdTransformerSpec extends ObjectBehavior
         $this->shouldImplement(DataTransformerInterface::class);
     }
 
+    function it_does_not_transform_because_file_is_null()
+    {
+        $this->transform(null);
+    }
+
     function it_does_not_transform_because_file_is_not_a_file_instance()
     {
         $this->shouldThrow(TransformationFailedException::class)->duringTransform('not-file-instance');
@@ -53,6 +58,11 @@ class FileToFileIdTransformerSpec extends ObjectBehavior
         $file->id()->shouldBeCalled()->willReturn($fileId);
 
         $this->transform($file);
+    }
+
+    function it_does_not_reverse_transform_because_file_id_is_null()
+    {
+        $this->reverseTransform(null);
     }
 
     function it_does_not_reverse_transform_because_file_of_id_given_does_not_exist(FileRepository $repository)

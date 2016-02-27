@@ -47,6 +47,9 @@ class FileToFileIdTransformer implements DataTransformerInterface
      */
     public function transform($file)
     {
+        if (null === $file) {
+            return;
+        }
         if (!$file instanceof File) {
             throw new TransformationFailedException(
                 sprintf(
@@ -64,6 +67,9 @@ class FileToFileIdTransformer implements DataTransformerInterface
      */
     public function reverseTransform($id)
     {
+        if (null === $id) {
+            return;
+        }
         $file = $this->repository->fileOfId(new FileId($id));
         if (!$file instanceof File) {
             throw new TransformationFailedException(
