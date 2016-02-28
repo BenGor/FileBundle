@@ -17,7 +17,7 @@
 
     var
       form = this,
-      fileInput,
+      fileInputs = [],
       formErrors = [],
       $benGorFileTypes = $(form).find('[data-bengor-file-type]');
 
@@ -34,7 +34,7 @@
             formData.append('file[name]', this.value);
           } else if (this.name.indexOf('file') > -1) {
             formData.append('file[file]', this.value);
-            fileInput = this.name;
+            fileInputs[index] = this.name;
           }
         }
       });
@@ -46,7 +46,7 @@
         processData: false,
         contentType: false
       }).done(function (data) {
-        $('input[name="' + fileInput + '"]').val(data.fileId);
+        $('input[name="' + fileInputs[index] + '"]').val(data.fileId);
         if (index + 1 === $benGorFileTypes.size()) {
           form.submit();
         }
