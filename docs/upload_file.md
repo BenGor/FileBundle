@@ -94,7 +94,8 @@ class User
 }
 ```
 
-Then, we have the user form type code. Note that the image form field is BenGor's FileType type. 
+Then, we have the user form type code. Note that the image form field is BenGor's FileType type. Also needs
+`data-bengor-file-type` data-attribute to manage as a Bengor's FileType inside JavaScript. 
 ```php
 <?php
 
@@ -113,7 +114,7 @@ class UserType extends AbstractType
         $builder
             ->add('firstName')
             ->add('lastName')
-            ->add('image', FileType::class)
+            ->add('image', FileType::class, ['attr' => ['data-bengor-file-type' => '']])
             ->add('submit', SubmitType::class);
     }
 
@@ -160,23 +161,18 @@ public function uploadAction(Request $request)
 ```
 
 
-Finally, this is the  *Twig* code that represents a simple view of our form. This file is located in
-`app/Resources/views/upload.html.twig`:
+Finally, this is the minimum *Twig* code we need to represent a simple view of our form. This file is located in
+`app/Resources/views/upload.html.twig`. Keep in mind that path name must be the same of `routes -> upload -> name`
+inside `ben_gor_file` configuration tree.
 ```twig
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if app.session.flashbag.peekAll|length > 0 %}
-        {% for type, messages in app.session.flashbag.all %}
-            {% for message in messages %}
-                <div class="{{ type ? type : '' }}">
-                    {{ message|trans({}, domain|default('messages')) }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
-
-    {{ form_start(form) }}
+    {{ form_start(form, {
+        'attr': {
+            'data-bengor-file-action': path('image_upload')
+        }
+    }) }}
     {{ form_widget(form) }}
 
     {{ form_end(form) }}
@@ -184,7 +180,7 @@ Finally, this is the  *Twig* code that represents a simple view of our form. Thi
 
 {% block javascripts %}
     <script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="{{ asset('bundles/bengorfile/js/app.js') }}"></script>
+    <script src="{{ asset('bundles/bengorfile/js/upload.js') }}"></script>
 {% endblock %}
 ```
 
