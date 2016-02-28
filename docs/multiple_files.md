@@ -1,7 +1,7 @@
-#Multiple users
+#Multiple files
 
 The [Getting started](getting_started.md) chapter only indicates how it registers your awesome file class. But this
-bundle is more powerful that it would seem and it allows use more than one file class in your application. All this
+bundle is more powerful that it would seem and it allows using more than one file class in your application. All this
 bundle [services](service_reference.md) are register via PHP inside CompilerPass so, the Symfony dependency injection
 container loads on the fly depending how many files are registered under `ben_gor_file` configuration section in
 `app/config/config.yml`.
