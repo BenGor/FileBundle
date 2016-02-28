@@ -18,24 +18,23 @@
     var
       form = this,
       fileInput,
-      formErrors = [];
+      formErrors = [],
+      $benGorFileTypes = $(form).find('[data-bengor-file-type]');
 
-    $(form).find('[data-bengor-file-type]').each(function () {
+    $benGorFileTypes.each(function (index) {
       var formData = new FormData();
 
       $(this).find(':input').map(function () {
-        var input = this;
-
-        if (input.type === 'file') {
-          if (input.files.length > 0) {
-            formData.append('file[uploaded_file]', input.files[0]);
+        if (this.type === 'file') {
+          if (this.files.length > 0) {
+            formData.append('file[uploaded_file]', this.files[0]);
           }
         } else {
-          if (input.name.indexOf('name') > -1) {
-            formData.append('file[name]', input.value);
-          } else if (input.name.indexOf('file') > -1) {
-            formData.append('file[file]', input.value);
-            fileInput = input.name;
+          if (this.name.indexOf('name') > -1) {
+            formData.append('file[name]', this.value);
+          } else if (this.name.indexOf('file') > -1) {
+            formData.append('file[file]', this.value);
+            fileInput = this.name;
           }
         }
       });
@@ -48,12 +47,13 @@
         contentType: false
       }).done(function (data) {
         $('input[name="' + fileInput + '"]').val(data.fileId);
+        if (index + 1 === $benGorFileTypes.size()) {
+          form.submit();
+        }
       }).fail(function (errors) {
         formErrors = errors;
       });
     });
-    console.log($('input[name="' + fileInput + '"]').val());
-    form.submit();
   });
 
 }(jQuery));
