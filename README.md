@@ -1,5 +1,5 @@
 #BenGorFileBundle
-> Fully featured and test covered user Symfony bundle built on top of [BenGorFile][6] library
+> Fully featured and test covered file Symfony bundle built on top of [BenGorFile][6] library
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/ce050451-ac21-4799-bb76-d767df157264/mini.png)](https://insight.sensiolabs.com/projects/ce050451-ac21-4799-bb76-d767df157264)
 [![Build Status](https://travis-ci.org/BenGorFile/FileBundle.svg?branch=master)](https://travis-ci.org/BenGorFile/FileBundle)

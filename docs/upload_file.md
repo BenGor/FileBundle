@@ -1,10 +1,10 @@
 #Upload File
 
-This chapter is a simple *cookbook* of how to implement a simple upload file process that persists a user, with its
+This chapter is a simple *cookbook* of how to implement a simple upload file process that persists a file, with its
 related image. For this example we have:
  * *Doctrine* persistence layer
  * *Gaufrette* filesystem
- * Light **user entity** that contains a `firstName`, `lastName` and `image`
+ * Light **file entity** that contains a `firstName`, `lastName` and `image`
  * **Image entity** that extends BengorFile and it [limits mime types](limit_mime_types.md) to image mime types
 
 Before to start with this example we should follow the [**Basic configuration**](basic_configuration.md) chapter.
@@ -25,7 +25,7 @@ ben_gor_file:
                     path: /ajax/upload
 ```
 
-The next code is related with the image and user entities.
+The next code is related with the image and file entities.
 
 *Image entity*:
 ```php
@@ -63,7 +63,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="user")
+ * @ORM\Table(name="file")
  */
 class User
 {
@@ -94,7 +94,7 @@ class User
 }
 ```
 
-Then, we have the user form type code. Note that the image form field is BenGor's FileType type. Also needs
+Then, we have the file form type code. Note that the image form field is BenGor's FileType type. Also needs
 `data-bengor-file-type` data-attribute to manage as a Bengor's FileType inside JavaScript. 
 ```php
 <?php

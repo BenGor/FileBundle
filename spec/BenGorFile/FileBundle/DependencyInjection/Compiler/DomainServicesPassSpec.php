@@ -12,7 +12,7 @@
 
 namespace spec\BenGorFile\FileBundle\DependencyInjection\Compiler;
 
-use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesCompilerPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesPass;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -20,15 +20,15 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
 /**
- * Spec file of domain services compiler pass.
+ * Spec file of DomainServicesPass class.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class DomainServicesCompilerPassSpec extends ObjectBehavior
+class DomainServicesPassSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(DomainServicesCompilerPass::class);
+        $this->shouldHaveType(DomainServicesPass::class);
     }
 
     function it_implements_compiler_pass_interface()

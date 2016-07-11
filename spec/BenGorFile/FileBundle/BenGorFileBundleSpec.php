@@ -13,7 +13,8 @@
 namespace spec\BenGorFile\FileBundle;
 
 use BenGorFile\FileBundle\BenGorFileBundle;
-use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesCompilerPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationCommandsPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesPass;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -39,7 +40,10 @@ class BenGorFileBundleSpec extends ObjectBehavior
     function it_builds(ContainerBuilder $container)
     {
         $container->addCompilerPass(
-            Argument::type(DomainServicesCompilerPass::class)
+            Argument::type(DomainServicesPass::class)
+        )->shouldBeCalled()->willReturn($container);
+        $container->addCompilerPass(
+            Argument::type(ApplicationCommandsPass::class)
         )->shouldBeCalled()->willReturn($container);
 
         $container->getParameter('kernel.bundles')->shouldBeCalled()->willReturn([

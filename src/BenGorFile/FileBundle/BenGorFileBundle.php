@@ -12,7 +12,8 @@
 
 namespace BenGorFile\FileBundle;
 
-use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesCompilerPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationCommandsPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -28,7 +29,8 @@ class BenGorFileBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new DomainServicesCompilerPass());
+        $container->addCompilerPass(new DomainServicesPass());
+        $container->addCompilerPass(new ApplicationCommandsPass());
 
         $this->buildLoadableBundles($container);
     }
