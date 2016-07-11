@@ -1,5 +1,5 @@
 {
-    "name": "bengor/file-bundle",
+    "name": "bengor-file/file-bundle",
     "description": "Symfony bundle on top of BenGor's file library",
     "keywords": ["file", "bundle", "ddd"],
     "license": "MIT",
@@ -17,14 +17,14 @@
         }
     ],
     "require": {
-        "php":                      ">=5.5",
-        "bengor/file":              "^0.1",
-        "symfony/form":             "^2.8|^3.0",
-        "symfony/framework-bundle": "^2.8|^3.0"
+        "php": "^5.5 || ^7.0",
+        "bengor-file/file": "1.0.x@dev",
+        "symfony/form": "^2.8 || ^3.0",
+        "symfony/framework-bundle": "^2.8 || ^3.0"
     },
     "require-dev": {
-        "fabpot/php-cs-fixer":      "^1.11",
-        "phpspec/phpspec":          "^2.4"
+        "friendsofphp/php-cs-fixer": "^1.11",
+        "phpspec/phpspec": "^2.5"
     },
     "scripts": {
         "cs": [
@@ -33,13 +33,9 @@
         ],
         "test": "phpspec run"
     },
-    "suggest": {
-        "doctrine/doctrine-bundle": "Required to use doctrine as persistence layer",
-        "knplabs/knp-gaufrette-bundle": "Required to use Gaufrette filesystem"
-    },
     "autoload": {
         "psr-4": {
-            "BenGor\\FileBundle\\": "src/BenGor/FileBundle/"
+            "BenGorFile\\FileBundle\\": "src/BenGorFile/FileBundle/"
         },
         "exclude-from-classmap": ["/spec/"]
     },

@@ -1,12 +1,12 @@
-#BenGorFileBundle
-> Fully featured and test covered user Symfony bundle built on top of [BenGorFile][6] library
+#BenGorFileFileBundle
+> Fully featured and test covered user Symfony bundle built on top of [BenGorFileFile][6] library
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/ce050451-ac21-4799-bb76-d767df157264/mini.png)](https://insight.sensiolabs.com/projects/ce050451-ac21-4799-bb76-d767df157264)
-[![Build Status](https://travis-ci.org/BenGor/FileBundle.svg?branch=master)](https://travis-ci.org/BenGor/FileBundle)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/BenGor/FileBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/BenGor/FileBundle/?branch=master)
-[![Total Downloads](https://poser.pugx.org/bengor/file-bundle/downloads)](https://packagist.org/packages/bengor/file-bundle)
-[![Latest Stable Version](https://poser.pugx.org/bengor/file-bundle/v/stable.svg)](https://packagist.org/packages/bengor/file-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/bengor/file-bundle/v/unstable.svg)](https://packagist.org/packages/bengor/file-bundle)
+[![Build Status](https://travis-ci.org/BenGorFile/FileBundle.svg?branch=master)](https://travis-ci.org/BenGorFile/FileBundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/BenGorFile/FileBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/BenGorFile/FileBundle/?branch=master)
+[![Total Downloads](https://poser.pugx.org/bengor-file/file-bundle/downloads)](https://packagist.org/packages/bengor-file/file-bundle)
+[![Latest Stable Version](https://poser.pugx.org/bengor-file/file-bundle/v/stable.svg)](https://packagist.org/packages/bengor-file/file-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/bengor-file/file-bundle/v/unstable.svg)](https://packagist.org/packages/bengor-file/file-bundle)
 
 ##Requirements
 PHP >= 5.5</br>
@@ -15,7 +15,7 @@ Symfony >= 2.8
 ##Installation
 The easiest way to install this component is using **[Composer][7]**
 ```bash
-$ composer require bengor/file-bundle
+$ composer require bengor-file/file-bundle
 ```
 ##Documentation
 
@@ -54,12 +54,12 @@ This bundle is created by:
 **@gorkalaucirica** - [gorka.lauzirika@gmail.com](mailto:gorka.lauzirika@gmail.com)
 
 ##Licensing Options
-[![License](https://poser.pugx.org/bengor/file-bundle/license.svg)](https://github.com/BenGor/FileBundle/blob/master/LICENSE)
+[![License](https://poser.pugx.org/bengor-file/file-bundle/license.svg)](https://github.com/BenGorFile/FileBundle/blob/master/LICENSE)
 
 [1]: http://www.phpspec.net/
 [2]: http://symfony.com/doc/current/contributing/code/index.html
 [3]: http://symfony.com/doc/current/contributing/code/patches.html#check-list
 [4]: http://symfony.com/doc/current/contributing/code/patches.html#make-a-pull-request
 [5]: http://cs.sensiolabs.org/
-[6]: https://github.com/BenGor/File
+[6]: https://github.com/BenGorFile/File
 [7]: http://getcomposer.org
