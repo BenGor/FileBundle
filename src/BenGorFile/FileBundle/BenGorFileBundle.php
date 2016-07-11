@@ -29,5 +29,23 @@ class BenGorFileBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new DomainServicesCompilerPass());
+
+        $this->buildLoadableBundles($container);
+    }
+
+    /**
+     * Executes the load method of LoadableBundle instances.
+     *
+     * @param ContainerBuilder $container The container builder
+     */
+    protected function buildLoadableBundles(ContainerBuilder $container)
+    {
+        $bundles = $container->getParameter('kernel.bundles');
+        foreach ($bundles as $bundle) {
+            $reflectionClass = new \ReflectionClass($bundle);
+            if ($reflectionClass->implementsInterface(LoadableBundle::class)) {
+                (new $bundle())->load($container);
+            }
+        }
     }
 }

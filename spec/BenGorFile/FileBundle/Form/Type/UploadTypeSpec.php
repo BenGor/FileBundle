@@ -39,16 +39,15 @@ class UploadTypeSpec extends ObjectBehavior
         $this->shouldHaveType(AbstractType::class);
     }
 
-    function it_builds(FormBuilderInterface $builder)
+    function it_builds(FormBuilderInterface $builder, FileCommandBus $fileCommandBus)
     {
         $builder->add('bengor_file', FileType::class, [
             'mapped' => false,
         ])->shouldBeCalled()->willReturn($builder);
-        $builder->setDataMapper($this)->shouldBeCalled()->willReturn($builder);
         $builder->addEventListener(FormEvents::POST_SUBMIT, Argument::type('closure'))
             ->shouldBeCalled()->willReturn($builder);
 
-        $this->buildForm($builder, ['command_bus' => FileCommandBus::class]);
+        $this->buildForm($builder, ['command_bus' => $fileCommandBus]);
     }
 
     function it_configures_options(OptionsResolver $resolver)

@@ -42,6 +42,10 @@ class BenGorFileBundleSpec extends ObjectBehavior
             Argument::type(DomainServicesCompilerPass::class)
         )->shouldBeCalled()->willReturn($container);
 
+        $container->getParameter('kernel.bundles')->shouldBeCalled()->willReturn([
+            'FrameworkBundle' => 'Symfony\Bundle\FrameworkBundle\FrameworkBundle',
+        ]);
+
         $this->build($container);
     }
 }
