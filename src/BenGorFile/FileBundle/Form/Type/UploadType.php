@@ -14,6 +14,7 @@ namespace BenGorFile\FileBundle\Form\Type;
 
 use BenGorFile\File\Application\Command\Upload\UploadFileCommand;
 use BenGorFile\File\Infrastructure\CommandBus\FileCommandBus;
+use BenGorFile\FileBundle\Form\DataTransformer\FileDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,22 +45,28 @@ class UploadType extends AbstractType
 
         $builder
             ->add('bengor_file', FileType::class, [
-                'mapped' => false,
+                'required' => $options['required'],
+                'label'    => $options['label'],
+                'attr'     => $options['attr'],
+                'mapped'   => false,
             ])
+            ->addModelTransformer(new FileDataTransformer())
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($commandBus) {
                 $file = $event->getForm()->get('bengor_file')->getData();
                 if (null === $file) {
                     return;
                 }
 
-                $commandBus->handle(
-                    new UploadFileCommand(
-                        $file->getClientOriginalName(),
-                        file_get_contents($file->getPathname()),
-                        $file->getMimeType()
-                    )
+                $command = new UploadFileCommand(
+                    $file->getClientOriginalName(),
+                    file_get_contents($file->getPathname()),
+                    $file->getMimeType()
                 );
+
+                $commandBus->handle($command);
             });
+
+
     }
 
     /**
@@ -67,6 +74,20 @@ class UploadType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(['command_bus']);
+        $resolver
+            ->setRequired('command_bus')
+            ->setDefaults([
+                'error_bubbling' => false,
+                'label'          => false,
+                'required'       => false,
+            ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'bengor_file';
     }
 }
