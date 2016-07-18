@@ -12,7 +12,8 @@
 
 namespace spec\BenGorFile\FileBundle\DependencyInjection\Compiler;
 
-use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesPass;
+use BenGorFile\File\Domain\Model\File;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationDataTransformersPass;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -20,23 +21,23 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
 /**
- * Spec file of DomainServicesPass class.
+ * Spec file of ApplicationDataTransformersPass pass.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class DomainServicesPassSpec extends ObjectBehavior
+class ApplicationDataTransformersPassSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(DomainServicesPass::class);
+        $this->shouldHaveType(ApplicationDataTransformersPass::class);
     }
 
-    function it_implements_compiler_pass_interface()
+    function it_implmements_compiler_pass_interface()
     {
         $this->shouldImplement(CompilerPassInterface::class);
     }
 
-    function it_processes(ContainerBuilder $container)
+    function it_processes(ContainerBuilder $container, Definition $definition)
     {
         $container->getParameter('bengor_file.config')->shouldBeCalled()->willReturn([
             'file_class' => [
@@ -53,13 +54,13 @@ class DomainServicesPassSpec extends ObjectBehavior
         ]);
 
         $container->setDefinition(
-            'bengor.file.infrastructure.domain.model.file_factory',
+            'bengor.file.application.data_transformer.file_dto',
             Argument::type(Definition::class)
-        )->shouldBeCalled();
+        )->shouldBeCalled()->willReturn($definition);
         $container->setAlias(
-            'bengor_file.file.factory',
-            'bengor.file.infrastructure.domain.model.file_factory'
-        )->shouldBeCalled();
+            'bengor_file.file.dto_data_transformer',
+            'bengor.file.application.data_transformer.file_dto'
+        )->shouldBeCalled()->willReturn($container);
 
         $this->process($container);
     }

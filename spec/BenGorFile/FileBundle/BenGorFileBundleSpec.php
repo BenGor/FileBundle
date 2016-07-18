@@ -14,9 +14,12 @@ namespace spec\BenGorFile\FileBundle;
 
 use BenGorFile\FileBundle\BenGorFileBundle;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationCommandsPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationDataTransformersPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationQueriesPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesPass;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -40,10 +43,16 @@ class BenGorFileBundleSpec extends ObjectBehavior
     function it_builds(ContainerBuilder $container)
     {
         $container->addCompilerPass(
-            Argument::type(DomainServicesPass::class)
+            Argument::type(DomainServicesPass::class), PassConfig::TYPE_OPTIMIZE
         )->shouldBeCalled()->willReturn($container);
         $container->addCompilerPass(
-            Argument::type(ApplicationCommandsPass::class)
+            Argument::type(ApplicationCommandsPass::class), PassConfig::TYPE_OPTIMIZE
+        )->shouldBeCalled()->willReturn($container);
+        $container->addCompilerPass(
+            Argument::type(ApplicationDataTransformersPass::class), PassConfig::TYPE_OPTIMIZE
+        )->shouldBeCalled()->willReturn($container);
+        $container->addCompilerPass(
+            Argument::type(ApplicationQueriesPass::class), PassConfig::TYPE_OPTIMIZE
         )->shouldBeCalled()->willReturn($container);
 
         $container->getParameter('kernel.bundles')->shouldBeCalled()->willReturn([
