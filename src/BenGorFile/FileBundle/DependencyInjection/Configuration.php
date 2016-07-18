@@ -53,6 +53,9 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                         ->end()
+                        ->scalarNode('data_transformer')
+                            ->defaultValue('BenGorFile\\File\\Application\\DataTransformer\\FileDTODataTransformer')
+                        ->end()
                     ->end()
                 ->end()
             ->end();

@@ -12,19 +12,19 @@
 
 namespace BenGorFile\FileBundle\DependencyInjection\Compiler;
 
-use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Command\UploadFileCommandBuilder;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\FileOfIdQueryBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Register application commands compiler pass.
+ * Register application queries compiler pass.
  *
- * Command declaration via PHP allows more
+ * Query declaration via PHP allows more
  * flexibility with customization extend files.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class ApplicationCommandsPass implements CompilerPassInterface
+class ApplicationQueriesPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
@@ -34,7 +34,7 @@ class ApplicationCommandsPass implements CompilerPassInterface
         $config = $container->getParameter('bengor_file.config');
 
         foreach ($config['file_class'] as $key => $file) {
-            (new UploadFileCommandBuilder($container, $file['persistence']))->build($key);
+            (new FileOfIdQueryBuilder($container))->build($key);
         }
     }
 }

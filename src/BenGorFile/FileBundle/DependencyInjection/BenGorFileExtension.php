@@ -29,6 +29,7 @@ class BenGorFileExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
         $container->setParameter('bengor_file.config', $config);
     }
 }

@@ -12,26 +12,23 @@
 
 namespace spec\BenGorFile\FileBundle\Form\Type;
 
-use BenGorFile\File\Infrastructure\CommandBus\FileCommandBus;
-use BenGorFile\FileBundle\Form\Type\UploadType;
+use BenGorFile\FileBundle\Form\Type\FileType;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\FileType as BaseFileType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Spec file of file form type class.
+ * Spec file of FileType class.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class UploadTypeSpec extends ObjectBehavior
+class FileTypeSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(UploadType::class);
+        $this->shouldHaveType(FileType::class);
     }
 
     function it_extends_abstract_type()
@@ -39,21 +36,25 @@ class UploadTypeSpec extends ObjectBehavior
         $this->shouldHaveType(AbstractType::class);
     }
 
-    function it_builds(FormBuilderInterface $builder, FileCommandBus $fileCommandBus)
+    function it_builds(FormBuilderInterface $builder)
     {
-        $builder->add('bengor_file', FileType::class, [
-            'mapped' => false,
+        $builder->add('bengor_file', BaseFileType::class, [
+            'required' => false,
+            'label'    => false,
+            'attr'     => '',
+            'mapped'   => false,
         ])->shouldBeCalled()->willReturn($builder);
-        $builder->addEventListener(FormEvents::POST_SUBMIT, Argument::type('closure'))
-            ->shouldBeCalled()->willReturn($builder);
 
-        $this->buildForm($builder, ['command_bus' => $fileCommandBus]);
+        $this->buildForm($builder, [
+            'required' => false,
+            'label'    => false,
+            'attr'     => '',
+            'mapped'   => false,
+        ]);
     }
 
     function it_configures_options(OptionsResolver $resolver)
     {
-        $resolver->setRequired(['command_bus'])->shouldBeCalled()->willReturn($resolver);
-
         $this->configureOptions($resolver);
     }
 }
