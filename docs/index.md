@@ -1,12 +1,22 @@
 #BenGorFileBundle documentation
 
 * [Basic configuration](basic_configuration.md)
-* Implementing features
-    * [Multiple file entities](multiple_files.md)
+* Usage
+    * **With** Symfony forms
+        * [Upload as relation to other entity](usage_upload_as_relation_to_other_entity_sf_form.md)
+        * [Upload standalone](usage_upload_standalone_sf_form.md)
+    * **Without** Symfony forms
+        * [Upload as relation to other entity](usage_upload_as_relation_to_other_entity.md)
+        * [Upload standalone](usage_upload_standalone.md)
+    * [Multiple files entities](usage_multiple_files.md)
     * [Limit *mime-types*](limit_mime_types.md)
-    * [Upload file](upload_file.md)
-    * Overwrite file
-    * Remove file
+    * [MongoDB's Doctrine ODM](doctrine_odm_mongodb.md)
+* Extending
+    * [Create custom use case](extending_create_custom_use_case.md)
+    * [Update existing use case](extending_update_existing_use_case.md)
 * Reference
-    * [Service reference](service_reference.md)
-    * [Configuration reference](configuration_reference.md)
+    * [Service reference](reference_services.md)
+    * [Configuration reference](reference_configuration.md)
+* Adapters
+    * [Bus adapters](adapters_buses.md)
+    * [Persistence adapters](adapters_persistence.md)

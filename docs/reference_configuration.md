@@ -6,23 +6,11 @@ ben_gor_file:
     file_class:
         file:
             class: ~                                        # Required
-            persistence: doctrine                           # Also, it can be "sql"
             filesystem:
                 gaufrette: ~                                # Already configured Gaufrette filesystem
                 symfony: ~                                  # Symfony filesystem path, e.g: %kernel.root_dir%/../web/file
-            routes:
-                upload:
-                    enable: true
-                    name: bengor_file_file_upload
-                    path: /bengor-file/file/upload
-                overwrite:
-                    enable: true
-                    name: bengor_file_file_overwrite
-                    path: /bengor-file/file/overwrite
-                remove:
-                    enable: true
-                    name: bengor_file_file_remove
-                    path: /bengor-file/file/remove
+            persistence: doctrine_orm                       # Also, it can be "doctrine_odm_mongodb"
+            data_transformer: BenGorFile\File\Application\DataTransformer\FileDTODataTransformer
 ```
 
 > **REMEMBER:** *Gaufrette* and *Symfony* filesystems are null by default, but one of these filesystems must

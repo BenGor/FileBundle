@@ -35,17 +35,17 @@ trait UploadAction
     public function uploadAction(Request $aRequest, FileCommandBus $aCommandBus, $aProperty)
     {
         $uploadedFile = $aRequest->files->get($aProperty);
-        $aCommandBus->handle(
-            new UploadFileCommand(
-                $uploadedFile->getClientOriginalName(),
-                file_get_contents($uploadedFile->getPathname()),
-                $uploadedFile->getMimeType()
-            )
+        $command = new UploadFileCommand(
+            $uploadedFile->getClientOriginalName(),
+            file_get_contents($uploadedFile->getPathname()),
+            $uploadedFile->getMimeType()
         );
+        $aCommandBus->handle($command);
 
         $aRequest->files->remove($aProperty);
 
         return [
+            'id'        => $command->id(),
             'filename'  => $uploadedFile->getClientOriginalName(),
             'mime_type' => $uploadedFile->getMimeType(),
         ];

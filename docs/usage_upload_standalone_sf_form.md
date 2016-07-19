@@ -21,6 +21,33 @@ class Image extends BaseFile
 ```
 
 ```php
+// src/AppBundle/Form/ImageType.php
+
+namespace AppBundle\Form;
+
+use AppBundle\Application\Command\UploadImageCommand;
+use AppBundle\Entity\Image;
+use BenGorFile\File\Domain\Model\FileId;
+use BenGorFile\File\Domain\Model\FileRepository;
+use BenGorFile\File\Infrastructure\CommandBus\FileCommandBus;
+use BenGorFile\FileBundle\Form\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ImageType extends FileType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        parent::buildForm($builder, $options);
+        $builder
+            ->add('submit', SubmitType::class);
+    }
+}
+```
+
+```php
 // src/AppBundle/Controller/DefaultController.php
 
 namespace AppBundle\Controller;
@@ -42,7 +69,7 @@ class DefaultController extends Controller
 
         if ($form->isValid()) {
             try {
-                $fileData = $this->uploadAction($request, $this->get('bengor_file.file.command_bus'), 'file');
+                $this->get('bengor_file.image.command_bus')->handle($form->getData());
                 
                 $this->addFlash('notice', 'Upload process has been successfully finished);
             } catch (FileException $exception) {
@@ -50,7 +77,7 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render('image/upload.html.twig', $fileData);
+        return $this->render('image/upload.html.twig', ['form' => $form->createView()]);
     }
 ```
 
@@ -70,14 +97,7 @@ class DefaultController extends Controller
         {% endfor %}
     {% endif %}
     
-    {% if filename is defined %}
-        <p>{{ filename }}</p>
-    {% endif %}
-
-    <form enctype="multipart/form-data" method="post" action="{{ path('app_upload_image') }}">
-        <input type="file" name="file"/>
-        <input type="submit"/>
-    </form>
+    {{ form(form) }}
 {% endblock %}
 ```
 
