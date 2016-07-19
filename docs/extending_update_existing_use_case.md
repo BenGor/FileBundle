@@ -1,7 +1,7 @@
 #Updating existing use case
 
 ```php
-<?php
+// src/AppBundle/Entity/Image.php
 
 namespace AppBundle\Entity;
 
