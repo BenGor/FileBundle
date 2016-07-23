@@ -50,7 +50,7 @@ public function registerBundles()
         new BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusDoctrineORMBridgeBundle(),
       
         // File bundle
-        new BenGorFile\FileBundle\BenGorFileBenGorFileBundle(),
+        new BenGorFile\FileBundle\BenGorFileBundle(),
         // ...
     ];
 }

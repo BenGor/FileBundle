@@ -31,10 +31,10 @@ public function registerBundles()
         new BenGorFile\DoctrineODMMongoDBBridgeBundle\BenGorFileDoctrineODMMongoDBBridgeBundle(),  
         
         // In case we are using SimpleBus as Bus adapter
-        new BenGorFile\SimpleBusBridgeBundle\SimpleBusBridgeBundle(),
-        new BenGorFile\SimpleBusBridgeBundle\SimpleBusDoctrineODMMongoDBBridgeBundle(),
+        new BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusBridgeBundle(),
+        new BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusDoctrineODMMongoDBBridgeBundle(),
         
-        new BenGorFile\FileBundle\BenGorFileBenGorFileBundle(),
+        new BenGorFile\FileBundle\BenGorFileBundle(),
         // ...
     ];
 }
