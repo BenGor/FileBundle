@@ -44,13 +44,13 @@ public function registerBundles()
         new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
         
         // Bridges
-        new BenGorFile\GaufretteFilesystemBridgeBundle\GaufretteFilesystemBridgeBundle(),
-        new BenGorFile\DoctrineORMBridgeBundle\DoctrineORMBridgeBundle(),
-        new BenGorFile\SimpleBusBridgeBundle\SimpleBusBridgeBundle(),
-        new BenGorFile\SimpleBusBridgeBundle\SimpleBusDoctrineORMBridgeBundle(),
+        new BenGorFile\GaufretteFilesystemBridgeBundle\BenGorFileGaufretteFilesystemBridgeBundle(),
+        new BenGorFile\DoctrineORMBridgeBundle\BenGorFileDoctrineORMBridgeBundle(),
+        new BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusBridgeBundle(),
+        new BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusDoctrineORMBridgeBundle(),
       
         // File bundle
-        new BenGorFile\FileBundle\BenGorFileBundle(),
+        new BenGorFile\FileBundle\BenGorFileBenGorFileBundle(),
         // ...
     ];
 }

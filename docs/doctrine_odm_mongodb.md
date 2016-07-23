@@ -28,13 +28,13 @@ public function registerBundles()
         // ...
         new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
         // ...
-        new BenGorFile\DoctrineODMMongoDBBridgeBundle\DoctrineODMMongoDBBridgeBundle(),  
+        new BenGorFile\DoctrineODMMongoDBBridgeBundle\BenGorFileDoctrineODMMongoDBBridgeBundle(),  
         
         // In case we are using SimpleBus as Bus adapter
         new BenGorFile\SimpleBusBridgeBundle\SimpleBusBridgeBundle(),
         new BenGorFile\SimpleBusBridgeBundle\SimpleBusDoctrineODMMongoDBBridgeBundle(),
         
-        new BenGorFile\FileBundle\BenGorFileBundle(),
+        new BenGorFile\FileBundle\BenGorFileBenGorFileBundle(),
         // ...
     ];
 }
