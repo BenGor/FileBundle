@@ -25,7 +25,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class BenGorFileBundle extends Bundle
+class BenGorFileBenGorFileBundle extends Bundle
 {
     /**
      * {@inheritdoc}

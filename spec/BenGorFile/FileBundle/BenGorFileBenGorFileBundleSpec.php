@@ -12,7 +12,7 @@
 
 namespace spec\BenGorFile\FileBundle;
 
-use BenGorFile\FileBundle\BenGorFileBundle;
+use BenGorFile\FileBundle\BenGorFileBenGorFileBundle;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationCommandsPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationDataTransformersPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationQueriesPass;
@@ -28,11 +28,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class BenGorFileBundleSpec extends ObjectBehavior
+class BenGorFileBenGorFileBundleSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(BenGorFileBundle::class);
+        $this->shouldHaveType(BenGorFileBenGorFileBundle::class);
     }
 
     function it_extends_symfony_bundle()
