@@ -37,6 +37,7 @@ class BenGorFileBundle extends Bundle
         $container->addCompilerPass(new ApplicationCommandsPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new ApplicationDataTransformersPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new ApplicationQueriesPass(), PassConfig::TYPE_OPTIMIZE);
+        $container->addCompilerPass(new TwigPass(), PassConfig::TYPE_REMOVE);
 
         $this->buildLoadableBundles($container);
     }

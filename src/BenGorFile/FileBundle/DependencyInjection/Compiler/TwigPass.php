@@ -10,38 +10,39 @@
  * file that was distributed with this source code.
  */
 
-namespace BenGorFile\FileBundle\DependencyInjection;
+namespace BenGorFile\FileBundle\DependencyInjection\Compiler;
 
+use BenGorFile\File\Infrastructure\Domain\Model\FileFactory;
 use BenGorFile\FileBundle\Twig\ViewExtension;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * BenGor file bundle extension class.
+ * Register Twig extensions compiler pass.
+ *
+ * Service declaration via PHP allows
+ * more flexibility with easy customization.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class BenGorFileExtension extends Extension
+class TwigPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function process(ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
-        $container->setParameter('bengor_file.config', $config);
-
+        $config = $container->getParameter('bengor_file.config');
         foreach ($config['file_class'] as $key => $file) {
             $container->setDefinition(
                 'bengor_file.file_bundle.twig.view_extension_' . $key,
-                (new Definition(ViewExtension::class))->addTag(
-                    'twig.extension'
-                )
+                (new Definition(
+                    ViewExtension::class, [
+                        $container->getDefinition('bengor_file.' . $key . '.filesystem'),
+                    ]
+                ))->setPublic(false)
             );
         }
-
     }
 }

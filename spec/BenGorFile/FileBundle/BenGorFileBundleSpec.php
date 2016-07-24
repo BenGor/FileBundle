@@ -55,6 +55,9 @@ class BenGorFileBundleSpec extends ObjectBehavior
         $container->addCompilerPass(
             Argument::type(ApplicationQueriesPass::class), PassConfig::TYPE_OPTIMIZE
         )->shouldBeCalled()->willReturn($container);
+        $container->addCompilerPass(
+            Argument::type(TwigPass::class), PassConfig::TYPE_REMOVE
+        )->shouldBeCalled()->willReturn($container);
 
         $container->getParameter('kernel.bundles')->shouldBeCalled()->willReturn([
             'FrameworkBundle' => 'Symfony\Bundle\FrameworkBundle\FrameworkBundle',
