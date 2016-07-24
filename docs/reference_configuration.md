@@ -5,11 +5,10 @@ All available configuration options are listed below with their default values.
 ben_gor_file:
     file_class:
         file:
-            class: ~                                        # Required
-            filesystem:
-                gaufrette: ~                                # Already configured Gaufrette filesystem
-                symfony: ~                                  # Symfony filesystem path, e.g: %kernel.root_dir%/../web/file
-            persistence: doctrine_orm                       # Also, it can be "doctrine_odm_mongodb"
+            class: ~                                                      # Required
+            storage: symfony                                              # Also, it can be "gaufrette"
+            upload_destination: '%kernel.root_dir%/../web/uploads'        # In Gaufrette storage is a configured Gaufrette filesystem
+            persistence: doctrine_orm                                     # Also, it can be "doctrine_odm_mongodb"
             data_transformer: BenGorFile\File\Application\DataTransformer\FileDTODataTransformer
 ```
 

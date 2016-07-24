@@ -33,7 +33,7 @@ class UploadFileCommandBuilder extends CommandBuilder
             (new Definition(
                 UploadFileHandler::class, [
                     $this->container->getDefinition(
-                        'bengor.file.infrastructure.domain.model.gaufrette_filesystem_' . $file
+                        'bengor.file.infrastructure.domain.model.' . $file . '_filesystem'
                     ),
                     $this->container->getDefinition(
                         'bengor.file.infrastructure.persistence.' . $file . '_repository'

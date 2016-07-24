@@ -17,6 +17,7 @@ use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationCommandsPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationDataTransformersPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationQueriesPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\TwigPass;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;

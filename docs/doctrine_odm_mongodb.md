@@ -76,8 +76,6 @@ ben_gor_file:
         file:
             class: AppBundle\Document\File
             persistence: doctrine_odm_mongodb
-            filesystem:
-                gaufrette: already_configured_gaufrette_filesystem
 ```
 
 - Back to the [index](index.md).

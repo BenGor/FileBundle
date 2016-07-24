@@ -3,6 +3,7 @@
 By default we recommend the following installation that will add the following adapters to the file bundle.
 
 * Persistence: [DoctrineORM](https://github.com/BenGorFile/DoctrineORMBridgeBundle)
+* Storage: [SymfonyFilesystem](https://github.com/BenGorFile/SymfonyFilesystemBridgeBundle)
 * Bus: [SimpleBus](https://github.com/BenGorFile/SimpleBusBridgeBundle)
 
 ```
@@ -10,15 +11,14 @@ By default we recommend the following installation that will add the following a
     "require": {
         "bengor-file/file-bundle": "^0.2",
 
-        "bengor-file/gaufrette-filesystem-bridge-bundle": "^1.0",
         "bengor-file/doctrine-orm-bridge-bundle": "^1.0",
+        "bengor-file/symfony-filesystem-bridge-bundle": "^1.0",
         "bengor-file/simple-bus-bridge-bundle": "^1.0"
     }
 } 
 ```
 
-> Some other adapters for [routing](adapters_routing.md), [security](adapters_security.md),
-[ui](adapters_ui.md), [persistence](adapters_persistence.md), [mailers](adapters_mailers.md) and 
+> Some other adapters for [persistence](adapters_persistence.md), [storages](adapters_storage.md) and 
 [buses](adapters_buses.md) are available.
 
 To install the desired adapters and the bundle itself run the following in the project root:
@@ -41,10 +41,8 @@ public function registerBundles()
         // Dependencies required by the bundle, keep the order.
         // First bridges and then the FileBundle
                 
-        new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
-        
         // Bridges
-        new BenGorFile\GaufretteFilesystemBridgeBundle\BenGorFileGaufretteFilesystemBridgeBundle(),
+        new BenGorFile\SymfonyFilesystemBridgeBundle\BenGorFileSymfonyFilesystemBridgeBundle(),
         new BenGorFile\DoctrineORMBridgeBundle\BenGorFileDoctrineORMBridgeBundle(),
         new BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusBridgeBundle(),
         new BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusDoctrineORMBridgeBundle(),
@@ -75,17 +73,12 @@ class File extends BaseFile
 }
 ```
 
->Keep in mind that to use **Gaufrette** filesystem (it's recommended way over Symfony filesystem), you need to install,
->enable and configure the **KnpGaufretteBundle** bundle so, you should follow the bundle's [documentation][1].
-
 Next, you have to configure the bundle to work with the specific needs of your application in the `config.yml`:
 ```yml
 ben_gor_file:
     file_class:
         file:
             class: AppBundle\Entity\File
-            filesystem:
-                gaufrette: already_configured_gaufrette_filesystem
 ```
 
 That's all! Now that the bundle is configured, the last thing you need to do is update your database:

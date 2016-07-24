@@ -16,6 +16,7 @@ use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationCommandsPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationDataTransformersPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationQueriesPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\TwigPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
