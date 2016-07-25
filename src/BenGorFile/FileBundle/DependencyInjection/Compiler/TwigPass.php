@@ -12,20 +12,20 @@
 
 namespace BenGorFile\FileBundle\DependencyInjection\Compiler;
 
-use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\FileOfIdQueryBuilder;
-use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\FileOfNameQueryBuilder;
+use BenGorFile\FileBundle\Twig\DownloadExtension;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 
 /**
- * Register application queries compiler pass.
+ * Register Twig extensions compiler pass.
  *
- * Query declaration via PHP allows more
- * flexibility with customization extend files.
+ * Service declaration via PHP allows
+ * more flexibility with easy customization.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class ApplicationQueriesPass implements CompilerPassInterface
+class TwigPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
@@ -35,8 +35,15 @@ class ApplicationQueriesPass implements CompilerPassInterface
         $config = $container->getParameter('bengor_file.config');
 
         foreach ($config['file_class'] as $key => $file) {
-            (new FileOfIdQueryBuilder($container))->build($key);
-            (new FileOfNameQueryBuilder($container))->build($key);
+            $container->setDefinition(
+                'bengor_file.file_bundle.twig.view_extension_' . $key,
+                (new Definition(
+                    DownloadExtension::class, [
+                        $container->getDefinition('router'),
+                        $key,
+                    ]
+                ))->setPublic(false)
+            );
         }
     }
 }

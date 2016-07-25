@@ -12,20 +12,18 @@
 
 namespace BenGorFile\FileBundle\DependencyInjection\Compiler;
 
-use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\FileOfIdQueryBuilder;
-use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\FileOfNameQueryBuilder;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\Routing\DownloadRoutesLoaderBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Register application queries compiler pass.
+ * Load routes compiler pass.
  *
- * Query declaration via PHP allows more
- * flexibility with customization extend files.
+ * Based on configuration the routes are created dynamically.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class ApplicationQueriesPass implements CompilerPassInterface
+class RoutesPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
@@ -34,9 +32,16 @@ class ApplicationQueriesPass implements CompilerPassInterface
     {
         $config = $container->getParameter('bengor_file.config');
 
+        $downloadConfiguration = [];
+
         foreach ($config['file_class'] as $key => $file) {
-            (new FileOfIdQueryBuilder($container))->build($key);
-            (new FileOfNameQueryBuilder($container))->build($key);
+            $downloadConfiguration[$key] = [
+                'storage'            => $file['storage'],
+                'upload_destination' => $file['upload_destination'],
+                'upload_dir'         => $file['upload_dir'],
+            ];
         }
+
+        (new DownloadRoutesLoaderBuilder($container, $downloadConfiguration))->build();
     }
 }

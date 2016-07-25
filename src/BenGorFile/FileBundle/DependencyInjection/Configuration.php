@@ -51,9 +51,11 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                         ->scalarNode('upload_destination')
-                            ->defaultValue('%kernel.root_dir%/../web/uploads')
+                            ->defaultValue('%kernel.root_dir%/../web')
                         ->end()
-
+                        ->scalarNode('upload_dir')
+                            ->defaultValue(null)
+                        ->end()
                         ->scalarNode('data_transformer')
                             ->defaultValue('BenGorFile\\File\\Application\\DataTransformer\\FileDTODataTransformer')
                         ->end()
