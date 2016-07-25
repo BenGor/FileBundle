@@ -21,4 +21,5 @@
     * [Configuration reference](reference_configuration.md)
 * Adapters
     * [Bus adapters](adapters_buses.md)
+    * [Storage adapters](adapters_storage.md)
     * [Persistence adapters](adapters_persistence.md)
