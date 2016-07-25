@@ -13,6 +13,7 @@
 namespace BenGorFile\FileBundle\DependencyInjection\Compiler;
 
 use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\FileOfIdQueryBuilder;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\FileOfNameQueryBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -35,6 +36,7 @@ class ApplicationQueriesPass implements CompilerPassInterface
 
         foreach ($config['file_class'] as $key => $file) {
             (new FileOfIdQueryBuilder($container))->build($key);
+            (new FileOfNameQueryBuilder($container))->build($key);
         }
     }
 }

@@ -12,8 +12,7 @@
 
 namespace spec\BenGorFile\FileBundle\DependencyInjection\Compiler;
 
-use BenGorFile\File\Domain\Model\File;
-use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationDataTransformersPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\TwigPass;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -21,18 +20,18 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
 /**
- * Spec file of ApplicationDataTransformersPass pass.
+ * Spec file of TwigPass class.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class ApplicationDataTransformersPassSpec extends ObjectBehavior
+class TwigPassSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(ApplicationDataTransformersPass::class);
+        $this->shouldHaveType(TwigPass::class);
     }
 
-    function it_implmements_compiler_pass_interface()
+    function it_implements_compiler_pass_interface()
     {
         $this->shouldImplement(CompilerPassInterface::class);
     }
@@ -52,14 +51,11 @@ class ApplicationDataTransformersPassSpec extends ObjectBehavior
             ],
         ]);
 
+        $container->getDefinition('router')->shouldBeCalled()->willReturn($definition);
         $container->setDefinition(
-            'bengor.file.application.data_transformer.file_dto',
+            'bengor_file.file_bundle.twig.view_extension_file',
             Argument::type(Definition::class)
-        )->shouldBeCalled()->willReturn($definition);
-        $container->setAlias(
-            'bengor_file.file.dto_data_transformer',
-            'bengor.file.application.data_transformer.file_dto'
-        )->shouldBeCalled()->willReturn($container);
+        )->shouldBeCalled();
 
         $this->process($container);
     }

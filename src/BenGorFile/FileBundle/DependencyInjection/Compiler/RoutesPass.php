@@ -12,20 +12,18 @@
 
 namespace BenGorFile\FileBundle\DependencyInjection\Compiler;
 
-use BenGorFile\FileBundle\Twig\DownloadExtension;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\Routing\DownloadRoutesLoaderBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 
 /**
- * Register Twig extensions compiler pass.
+ * Load routes compiler pass.
  *
- * Service declaration via PHP allows
- * more flexibility with easy customization.
+ * Based on configuration the routes are created dynamically.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class TwigPass implements CompilerPassInterface
+class RoutesPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
@@ -34,16 +32,16 @@ class TwigPass implements CompilerPassInterface
     {
         $config = $container->getParameter('bengor_file.config');
 
+        $downloadConfiguration = [];
+
         foreach ($config['file_class'] as $key => $file) {
-            $container->setDefinition(
-                'bengor_file.file_bundle.twig.view_extension_' . $key,
-                (new Definition(
-                    DownloadExtension::class, [
-                        $container->getDefinition('router'),
-                        $key,
-                    ]
-                ))->setPublic(false)
-            );
+            $downloadConfiguration[$key] = [
+                'storage'            => $file['storage'],
+                'upload_destination' => $file['upload_destination'],
+                'upload_dir'         => $file['upload_dir'],
+            ];
         }
+
+        (new DownloadRoutesLoaderBuilder($container, $downloadConfiguration))->build();
     }
 }

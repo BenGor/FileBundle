@@ -41,13 +41,12 @@ class DomainServicesPassSpec extends ObjectBehavior
         $container->getParameter('bengor_file.config')->shouldBeCalled()->willReturn([
             'file_class' => [
                 'file' => [
-                    'class'            => 'BenGor\\File\\Domain\\Model\\File',
-                    'persistence'      => 'doctrine_orm',
-                    'data_transformer' => 'BenGorFile\\File\\Application\\DataTransformer\\FileDTODataTransformer',
-                    'filesystem'       => [
-                        'gaufrette' => 'file_filesystem',
-                        'symfony'   => null,
-                    ],
+                    'class'              => 'BenGor\\File\\Domain\\Model\\File',
+                    'persistence'        => 'doctrine_orm',
+                    'data_transformer'   => 'BenGorFile\\File\\Application\\DataTransformer\\FileDTODataTransformer',
+                    'storage'            => 'gaufrette',
+                    'upload_destination' => 'images',
+                    'upload_dir'         => '/images',
                 ],
             ],
         ]);

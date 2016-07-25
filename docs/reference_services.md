@@ -12,6 +12,7 @@ bengor_file.file.event_bus               BenGorFile\SimpleBusBridge\EventBus\Sim
 bengor_file.file.factory                 BenGorFile\File\Infrastructure\Domain\Model\FileFactory
 
 bengor_file.file.by_id_query             BenGorFile\File\Application\Query\FileOfIdHandler
+bengor_file.file.by_name_query           BenGorFile\File\Application\Query\FileOfNameHandler
 
 bengor_file.file.filesystem              BenGorFile\GaufretteFilesystemBridge\Infrastructure\Domain\Model\GaufretteFilesystem
                                          BenGorFile\SymfonyFilesystemBridge\Infrastructure\Domain\Model\SymfonyFilesystem

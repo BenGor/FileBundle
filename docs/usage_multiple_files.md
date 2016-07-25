@@ -31,12 +31,8 @@ ben_gor_file:
     file_class:
         file:
             class: AppBundle\Entity\File
-            filesystem:
-                gaufrette: already_configured_gaufrette_filesystem
         image:
             class: AppBundle\Entity\Image
-            filesystem:
-                gaufrette: already_configured_gaufrette_filesystem
 ```
 
 With only one file type declared in `config.yml` if you execute the

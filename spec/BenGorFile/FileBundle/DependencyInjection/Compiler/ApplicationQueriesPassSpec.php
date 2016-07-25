@@ -42,13 +42,12 @@ class ApplicationQueriesPassSpec extends ObjectBehavior
         $container->getParameter('bengor_file.config')->shouldBeCalled()->willReturn([
             'file_class' => [
                 'file' => [
-                    'class'            => 'BenGor\\File\\Domain\\Model\\File',
-                    'persistence'      => 'doctrine_orm',
-                    'data_transformer' => 'BenGorFile\\File\\Application\\DataTransformer\\FileDTODataTransformer',
-                    'filesystem'       => [
-                        'gaufrette' => 'file_filesystem',
-                        'symfony'   => null,
-                    ],
+                    'class'              => 'BenGor\\File\\Domain\\Model\\File',
+                    'persistence'        => 'doctrine_orm',
+                    'data_transformer'   => 'BenGorFile\\File\\Application\\DataTransformer\\FileDTODataTransformer',
+                    'storage'            => 'gaufrette',
+                    'upload_destination' => 'images',
+                    'upload_dir'         => '/images',
                 ],
             ],
         ]);
@@ -65,6 +64,15 @@ class ApplicationQueriesPassSpec extends ObjectBehavior
         $container->setAlias(
             'bengor_file.file.by_id_query',
             'bengor.file.application.query.file_of_id'
+        )->shouldBeCalled()->willReturn($container);
+
+        $container->setDefinition(
+            'bengor.file.application.query.file_of_name',
+            Argument::type(Definition::class)
+        )->shouldBeCalled()->willReturn($definition);
+        $container->setAlias(
+            'bengor_file.file.by_name_query',
+            'bengor.file.application.query.file_of_name'
         )->shouldBeCalled()->willReturn($container);
 
         $this->process($container);

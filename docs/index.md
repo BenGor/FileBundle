@@ -9,7 +9,9 @@
         * [Upload as relation to other entity](usage_upload_as_relation_to_other_entity.md)
         * [Upload standalone](usage_upload_standalone.md)
     * [Multiple files entities](usage_multiple_files.md)
-    * [MongoDB's Doctrine ODM](doctrine_odm_mongodb.md)
+    * [Serving files from Twig](usage_serving_files_from_twig.md)
+    * [Gaufrette](usage_gaufrette.md)
+    * [MongoDB's Doctrine ODM](usage_doctrine_odm_mongodb.md)
 * Extending
     * [Limit *mime-types*](extending_limit_mime_types.md)
     * [Create custom use case](extending_create_custom_use_case.md)

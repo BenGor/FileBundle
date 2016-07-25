@@ -18,7 +18,7 @@ By default we recommend the following installation that will add the following a
 } 
 ```
 
-> Some other adapters for [persistence](adapters_persistence.md), [storages](adapters_storage.md) and 
+> Some other adapters for [persistence](adapters_persistence.md), [storage](adapters_storage.md) and 
 [buses](adapters_buses.md) are available.
 
 To install the desired adapters and the bundle itself run the following in the project root:
@@ -80,14 +80,18 @@ ben_gor_file:
         file:
             class: AppBundle\Entity\File
 ```
-
+This bundle has some basic actions such as upload, overwrite and remove already implemented. Just add the following
+to your `app/config/routing.yml`:
+```yml
+ben_gor_file:
+    resource: '@BenGorFileBundle/Resources/config/routing/all.yml'
+```
 That's all! Now that the bundle is configured, the last thing you need to do is update your database:
 ```bash
 $ bin/console doctrine:schema:update --force
 ```
 
 - For **multiple files** check [this guide](usage_multiple_files.md).
-- In order to use **MongoDB's Doctrine ODM** as persistence layer follow [this chapter](doctrine_odm_mongodb.md).
+- In order to use **MongoDB's Doctrine ODM** as persistence layer follow [this chapter](usage_doctrine_odm_mongodb.md).
+- In order to use **Gaufrette** as filesystem follow [this chapter](usage_gaufrette.md).
 - Back to the [index](index.md).
-
-[1]: https://github.com/KnpLabs/KnpGaufretteBundle#installation

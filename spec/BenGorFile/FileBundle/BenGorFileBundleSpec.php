@@ -17,6 +17,7 @@ use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationCommandsPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationDataTransformersPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationQueriesPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\RoutesPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\TwigPass;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -54,6 +55,9 @@ class BenGorFileBundleSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn($container);
         $container->addCompilerPass(
             Argument::type(ApplicationQueriesPass::class), PassConfig::TYPE_OPTIMIZE
+        )->shouldBeCalled()->willReturn($container);
+        $container->addCompilerPass(
+            Argument::type(RoutesPass::class), PassConfig::TYPE_OPTIMIZE
         )->shouldBeCalled()->willReturn($container);
         $container->addCompilerPass(
             Argument::type(TwigPass::class), PassConfig::TYPE_REMOVE
