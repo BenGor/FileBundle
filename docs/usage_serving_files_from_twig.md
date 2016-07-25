@@ -22,7 +22,7 @@ that file is, for example, a pdf.
 ```twig
 {# your awesome twig template #}
 
-<embed src="{{ bengor_file_image_download('pdf-file.pdf') }}" width="500" height="1000"/>
+<embed src="{{ bengor_file_file_download('pdf-file.pdf') }}" width="500" height="1000"/>
 
 <img src="{{ bengor_file_image_download('image.jpg') }}"/>
 ```
