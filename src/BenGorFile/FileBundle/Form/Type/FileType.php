@@ -13,7 +13,6 @@
 namespace BenGorFile\FileBundle\Form\Type;
 
 use BenGorFile\File\Application\Command\Upload\UploadFileCommand;
-use BenGorFile\File\Domain\Model\File;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType as BaseFileType;
 use Symfony\Component\Form\FormBuilderInterface;
