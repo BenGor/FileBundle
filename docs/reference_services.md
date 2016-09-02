@@ -4,6 +4,9 @@ All available services are listed below with their associated class.
 ```bash
 bengor_file.file.dto_data_transformer    BenGorFile\File\Application\DataTransformer\FileDTODataTransformer
 
+bengor_file.image.overwrite              alias for "bengor.file.application.command.overwrite_image"
+bengor_file.image.remove                 alias for "bengor.file.application.command.remove_image"
+bengor_file.image.rename                 alias for "bengor.file.application.command.rename_image"
 bengor_file.file.upload                  alias for "bengor.file.application.command.upload_file"
 
 bengor_file.file.command_bus             BenGorFile\SimpleBusBridge\CommandBus\SimpleBusFileCommandBus

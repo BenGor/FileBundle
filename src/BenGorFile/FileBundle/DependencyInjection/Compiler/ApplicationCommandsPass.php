@@ -12,6 +12,9 @@
 
 namespace BenGorFile\FileBundle\DependencyInjection\Compiler;
 
+use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Command\OverwriteFileCommandBuilder;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Command\RemoveFileCommandBuilder;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Command\RenameFileCommandBuilder;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Command\UploadFileCommandBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -35,6 +38,9 @@ class ApplicationCommandsPass implements CompilerPassInterface
 
         foreach ($config['file_class'] as $key => $file) {
             (new UploadFileCommandBuilder($container, $file['persistence']))->build($key);
+            (new OverwriteFileCommandBuilder($container, $file['persistence']))->build($key);
+            (new RenameFileCommandBuilder($container, $file['persistence']))->build($key);
+            (new RemoveFileCommandBuilder($container, $file['persistence']))->build($key);
         }
     }
 }
