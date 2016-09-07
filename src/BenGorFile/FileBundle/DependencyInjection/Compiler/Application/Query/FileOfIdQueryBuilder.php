@@ -29,7 +29,7 @@ class FileOfIdQueryBuilder extends QueryBuilder
     {
         $this->container->setDefinition(
             $this->definitionName($file),
-            (new Definition(
+            new Definition(
                 FileOfIdHandler::class, [
                     $this->container->getDefinition(
                         'bengor.file.infrastructure.persistence.' . $file . '_repository'
@@ -38,7 +38,7 @@ class FileOfIdQueryBuilder extends QueryBuilder
                         'bengor.file.application.data_transformer.' . $file . '_dto'
                     ),
                 ]
-            ))->setPublic(false)
+            )
         );
     }
 

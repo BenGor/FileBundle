@@ -71,7 +71,7 @@ class FileDTODataTransformerBuilder implements ApplicationBuilder
         $this->container->setDefinition(
             'bengor.file.application.data_transformer.' . $file . '_dto',
             $dataTransformer
-        )->setPublic(false);
+        );
 
         $this->container->setAlias(
             'bengor_file.' . $file . '.dto_data_transformer',

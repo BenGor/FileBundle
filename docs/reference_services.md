@@ -27,6 +27,14 @@ bengor_file.file.repository              BenGorFile\DoctrineORMBridge\Infrastruc
 
 // Creates by Symfony DIC to the correct use of the bundle. Please, don't use them.
 
-bengor.file.application.command.upload_file    BenGorFile\File\Application\Command\Upload\UploadFileHandler
+bengor.file.application.command.overwrite_file     BenGorFile\File\Application\Command\Upload\OverwriteFileHandler
+bengor.file.application.command.remove_file        BenGorFile\File\Application\Command\Upload\RemoveFileHandler
+bengor.file.application.command.rename_file        BenGorFile\File\Application\Command\Upload\RenameFileHandler
+bengor.file.application.command.upload_file        BenGorFile\File\Application\Command\Upload\UploadFileHandler
+
+bengor.file.application.data_transformer.file_dto  BenGorFile\File\Application\DataTransformer\FileDTODataTransformer
+
+bengor.file.application.query.file_of_id           BenGorFile\File\Application\Query\FileOfIdQuery
+bengor.file.application.query.file_of_name         BenGorFile\File\Application\Query\FileOfNameQuery
 ```
 - Back to the [index](index.md).
