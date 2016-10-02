@@ -37,17 +37,12 @@ class DefaultController extends Controller
      */
     public function uploadImageAction(Request $request)
     {
-        $form = $this->createForm(ImageType::class);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            try {
-                $fileData = $this->uploadAction($request, $this->get('bengor_file.file.command_bus'), 'file');
-                
-                $this->addFlash('notice', 'Upload process has been successfully finished);
-            } catch (FileException $exception) {
-                $this->addFlash('error', $exception->getMessage());
-            }
+        try {
+            $fileData = $this->uploadAction($request, $this->get('bengor_file.file.command_bus'), 'file');
+            
+            $this->addFlash('notice', 'Upload process has been successfully finished);
+        } catch (FileException $exception) {
+            $this->addFlash('error', $exception->getMessage());
         }
 
         return $this->render('image/upload.html.twig', $fileData);
