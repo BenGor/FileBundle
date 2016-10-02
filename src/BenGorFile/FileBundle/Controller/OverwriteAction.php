@@ -35,6 +35,10 @@ trait OverwriteAction
      */
     public function overwriteAction($anId, Request $aRequest, FileCommandBus $aCommandBus, $aProperty)
     {
+        if (false === $aRequest->files->has($aProperty)) {
+            throw new \InvalidArgumentException(sprintf('Given %s property is not in the request', $aProperty));
+        }
+
         $uploadedFile = $aRequest->files->get($aProperty);
         $command = new OverwriteFileCommand(
             $anId,
