@@ -12,6 +12,8 @@
 
 namespace BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Command;
 
+use BenGorFile\File\Application\Command\Upload\ByHashUploadFileCommand;
+use BenGorFile\File\Application\Command\Upload\ByHashUploadFileHandler;
 use BenGorFile\File\Application\Command\Upload\UploadFileCommand;
 use BenGorFile\File\Application\Command\Upload\UploadFileHandler;
 use Symfony\Component\DependencyInjection\Definition;
@@ -31,7 +33,7 @@ class UploadFileCommandBuilder extends CommandBuilder
         $this->container->setDefinition(
             $this->definitionName($file),
             (new Definition(
-                UploadFileHandler::class, [
+                $this->handler(), [
                     $this->container->getDefinition(
                         'bengor.file.infrastructure.domain.model.' . $file . '_filesystem'
                     ),
@@ -44,7 +46,7 @@ class UploadFileCommandBuilder extends CommandBuilder
                 ]
             ))->addTag(
                 'bengor_file_' . $file . '_command_bus_handler', [
-                    'handles' => UploadFileCommand::class,
+                    'handles' => $this->command(),
                 ]
             )
         );
@@ -64,5 +66,29 @@ class UploadFileCommandBuilder extends CommandBuilder
     protected function aliasDefinitionName($file)
     {
         return 'bengor_file.' . $file . '.upload';
+    }
+
+    /**
+     * Gets the FQCN of command.
+     *
+     * @return string
+     */
+    private function command()
+    {
+        return $this->configuration['upload_strategy'] === 'default'
+            ? UploadFileCommand::class
+            : ByHashUploadFileCommand::class;
+    }
+
+    /**
+     * Gets the FQCN of command handler.
+     *
+     * @return string
+     */
+    private function handler()
+    {
+        return $this->configuration['upload_strategy'] === 'default'
+            ? UploadFileHandler::class
+            : ByHashUploadFileHandler::class;
     }
 }
