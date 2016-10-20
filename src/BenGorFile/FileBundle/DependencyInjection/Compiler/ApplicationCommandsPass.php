@@ -37,7 +37,7 @@ class ApplicationCommandsPass implements CompilerPassInterface
         $config = $container->getParameter('bengor_file.config');
 
         foreach ($config['file_class'] as $key => $file) {
-            (new UploadFileCommandBuilder($container, $file['persistence']))->build($key);
+            (new UploadFileCommandBuilder($container, $file['persistence'], $file))->build($key);
             (new OverwriteFileCommandBuilder($container, $file['persistence']))->build($key);
             (new RenameFileCommandBuilder($container, $file['persistence']))->build($key);
             (new RemoveFileCommandBuilder($container, $file['persistence']))->build($key);
