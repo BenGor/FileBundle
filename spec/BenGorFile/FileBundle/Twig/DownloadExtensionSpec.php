@@ -25,7 +25,7 @@ class DownloadExtensionSpec extends ObjectBehavior
 {
     function let(UrlGeneratorInterface $urlGenerator)
     {
-        $this->beConstructedWith($urlGenerator, 'file');
+        $this->beConstructedWith($urlGenerator);
     }
 
     function it_is_initializable()
@@ -44,11 +44,11 @@ class DownloadExtensionSpec extends ObjectBehavior
             'bengor_file_file_download', ['filename' => 'logo.jpg'], UrlGeneratorInterface::ABSOLUTE_URL
         )->shouldBeCalled()->willReturn('/files/logo.jpg');
 
-        $this->download('logo.jpg')->shouldReturn('/files/logo.jpg');
+        $this->download('file', 'logo.jpg')->shouldReturn('/files/logo.jpg');
     }
 
     function it_gets_name()
     {
-        $this->getName()->shouldReturn('bengor_file_file_download');
+        $this->getName()->shouldReturn('bengor_file_download');
     }
 }

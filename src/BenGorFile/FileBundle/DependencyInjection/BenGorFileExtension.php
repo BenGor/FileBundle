@@ -12,10 +12,8 @@
 
 namespace BenGorFile\FileBundle\DependencyInjection;
 
-use BenGorFile\FileBundle\Twig\DownloadExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
@@ -36,16 +34,8 @@ class BenGorFileExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/services'));
 
         $loader->load('routing.yml');
+        $loader->load('twig.yml');
 
         $container->setParameter('bengor_file.config', $config);
-
-        foreach ($config['file_class'] as $key => $file) {
-            $container->setDefinition(
-                'bengor_file.file_bundle.twig.view_extension_' . $key,
-                (new Definition(DownloadExtension::class))->addTag(
-                    'twig.extension'
-                )
-            );
-        }
     }
 }

@@ -1,0 +1,16 @@
+# This file is part of the BenGorFile package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    bengor_file.file_bundle.twig.download_extension:
+        class: BenGorFile\FileBundle\Twig\DownloadExtension
+        arguments:
+            - '@router'
+        public: false
+        tags:
+            - { name: twig.extension }

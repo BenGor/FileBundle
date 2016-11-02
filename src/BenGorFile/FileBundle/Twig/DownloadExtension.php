@@ -29,22 +29,13 @@ class DownloadExtension extends \Twig_Extension
     private $urlGenerator;
 
     /**
-     * The file type.
-     *
-     * @var string
-     */
-    private $fileClass;
-
-    /**
      * Constructor.
      *
      * @param UrlGeneratorInterface $anUrlGenerator The URL generator
-     * @param string                $aFileClass     The file type
      */
-    public function __construct(UrlGeneratorInterface $anUrlGenerator, $aFileClass)
+    public function __construct(UrlGeneratorInterface $anUrlGenerator)
     {
         $this->urlGenerator = $anUrlGenerator;
-        $this->fileClass = $aFileClass;
     }
 
     /**
@@ -58,16 +49,17 @@ class DownloadExtension extends \Twig_Extension
     }
 
     /**
-     * Generates the url that returns the file of given name.
+     * Generates the url that returns the file of given file type and name.
      *
-     * @param string $name The file name
+     * @param string $fileClass The file type type
+     * @param string $name      The file name
      *
      * @return string
      */
-    public function download($name)
+    public function download($fileClass, $name)
     {
         return $this->urlGenerator->generate(
-            'bengor_file_' . $this->fileClass . '_download',
+            'bengor_file_' . $fileClass . '_download',
             ['filename' => $name],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
@@ -78,6 +70,6 @@ class DownloadExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'bengor_file_' . $this->fileClass . '_download';
+        return 'bengor_file_download';
     }
 }
