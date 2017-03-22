@@ -54,6 +54,8 @@ class ApplicationQueriesPassSpec extends ObjectBehavior
 
         $container->getDefinition('bengor.file.infrastructure.persistence.file_repository')
             ->shouldBeCalled()->willReturn($definition);
+        $container->getDefinition('bengor.file.infrastructure.persistence.file_specification_factory')
+            ->shouldBeCalled()->willReturn($definition);
         $container->getDefinition('bengor.file.application.data_transformer.file_dto')
             ->shouldBeCalled()->willReturn($definition);
 

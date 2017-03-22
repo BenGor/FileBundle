@@ -12,24 +12,41 @@
 
 namespace BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Command;
 
-use BenGorFile\File\Application\Command\Upload\ByHashUploadFileCommand;
-use BenGorFile\File\Application\Command\Upload\ByHashUploadFileHandler;
-use BenGorFile\File\Application\Command\Upload\UploadFileCommand;
-use BenGorFile\File\Application\Command\Upload\UploadFileHandler;
+use BenGorFile\File\Application\Command\Upload\SuffixNumberUploadFileCommand;
+use BenGorFile\File\Application\Command\Upload\SuffixNumberUploadFileHandler;
 use Symfony\Component\DependencyInjection\Definition;
 
 /**
- * Upload file command builder.
+ * Suffix number upload file command builder.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class UploadFileCommandBuilder extends CommandBuilder
+class SuffixNumberFileCommandBuilder extends UploadFileCommandBuilder
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function build($file)
+    {
+        $this->register($file);
+
+        $this->container->setAlias(
+            $this->aliasDefinitionName($file),
+            $this->definitionName($file)
+        );
+
+        return $this->container;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function register($file)
     {
+        if ($this->configuration['upload_strategy'] == 'suffix_number') {
+            return parent::register($file);
+        }
+
         $this->container->setDefinition(
             $this->definitionName($file),
             (new Definition(
@@ -39,6 +56,9 @@ class UploadFileCommandBuilder extends CommandBuilder
                     ),
                     $this->container->getDefinition(
                         'bengor.file.infrastructure.persistence.' . $file . '_repository'
+                    ),
+                    $this->container->getDefinition(
+                        'bengor.file.infrastructure.persistence.' . $file . '_specification_factory'
                     ),
                     $this->container->getDefinition(
                         'bengor.file.infrastructure.domain.model.' . $file . '_factory'
@@ -53,31 +73,13 @@ class UploadFileCommandBuilder extends CommandBuilder
     }
 
     /**
-     * {@inheritdoc}
-     */
-    protected function definitionName($file)
-    {
-        return 'bengor.file.application.command.upload_' . $file;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function aliasDefinitionName($file)
-    {
-        return 'bengor_file.' . $file . '.upload';
-    }
-
-    /**
      * Gets the FQCN of command.
      *
      * @return string
      */
     private function command()
     {
-        return $this->configuration['upload_strategy'] === 'default'
-            ? UploadFileCommand::class
-            : ByHashUploadFileCommand::class;
+        return SuffixNumberUploadFileCommand::class;
     }
 
     /**
@@ -87,8 +89,6 @@ class UploadFileCommandBuilder extends CommandBuilder
      */
     private function handler()
     {
-        return $this->configuration['upload_strategy'] === 'default'
-            ? UploadFileHandler::class
-            : ByHashUploadFileHandler::class;
+        return SuffixNumberUploadFileHandler::class;
     }
 }

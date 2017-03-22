@@ -35,6 +35,9 @@ class FileOfNameQueryBuilder extends QueryBuilder
                         'bengor.file.infrastructure.persistence.' . $file . '_repository'
                     ),
                     $this->container->getDefinition(
+                        'bengor.file.infrastructure.persistence.' . $file . '_specification_factory'
+                    ),
+                    $this->container->getDefinition(
                         'bengor.file.application.data_transformer.' . $file . '_dto'
                     ),
                 ]
