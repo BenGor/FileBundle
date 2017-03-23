@@ -32,14 +32,16 @@ trait UploadAction
      *
      * @return array
      */
-    public function uploadAction(Request $aRequest, FileCommandBus $aCommandBus, $aProperty)
+    public function upload(Request $aRequest, FileCommandBus $aCommandBus, $aProperty)
     {
         if (false === $aRequest->files->has($aProperty)) {
             throw new \InvalidArgumentException(sprintf('Given %s property is not in the request', $aProperty));
         }
 
+        $command = $this->command();
+
         $uploadedFile = $aRequest->files->get($aProperty);
-        $command = new UploadFileCommand(
+        $command = new $command(
             $uploadedFile->getClientOriginalName(),
             file_get_contents($uploadedFile->getPathname()),
             $uploadedFile->getMimeType()
@@ -53,5 +55,15 @@ trait UploadAction
             'filename'  => $uploadedFile->getClientOriginalName(),
             'mime_type' => $uploadedFile->getMimeType(),
         ];
+    }
+
+    /**
+     * Gets the FQCN command name.
+     *
+     * @return string
+     */
+    private function command()
+    {
+        return UploadFileCommand::class;
     }
 }
