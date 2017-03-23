@@ -13,7 +13,7 @@
 namespace BenGorFile\FileBundle\Controller;
 
 use BenGorFile\File\Application\Command\Upload\UploadFileCommand;
-use BenGorFile\File\Infrastructure\CommandBus\FileCommandBus;
+use BenGorFile\File\Infrastructure\Application\FileCommandBus;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
