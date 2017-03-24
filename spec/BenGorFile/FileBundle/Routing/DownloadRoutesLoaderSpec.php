@@ -29,7 +29,7 @@ class DownloadRoutesLoaderSpec extends ObjectBehavior
             'file' => [
                 'storage'            => 'gaufrette',
                 'upload_destination' => 'files',
-                'upload_dir'         => '/files',
+                'download_base_url'         => '/files',
             ],
         ]);
     }

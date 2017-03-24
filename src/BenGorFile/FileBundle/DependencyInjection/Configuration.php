@@ -56,7 +56,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('upload_destination')
                             ->defaultValue('%kernel.root_dir%/../web')
                         ->end()
-                        ->scalarNode('upload_dir')
+                        ->scalarNode('download_base_url')
                             ->defaultValue(null)
                         ->end()
                         ->scalarNode('data_transformer')

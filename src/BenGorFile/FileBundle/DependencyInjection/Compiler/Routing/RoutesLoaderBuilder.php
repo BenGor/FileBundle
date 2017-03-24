@@ -85,8 +85,8 @@ abstract class RoutesLoaderBuilder
     protected function sanitize(array $configuration)
     {
         foreach ($configuration as $key => $config) {
-            if (null === $config['upload_dir']) {
-                $configuration[$key]['upload_dir'] = $this->defaultUploadDir($key);
+            if (null === $config['download_base_url']) {
+                $configuration[$key]['download_base_url'] = $this->defaultUploadDir($key);
             }
         }
 

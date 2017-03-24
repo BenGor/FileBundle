@@ -38,7 +38,7 @@ class RoutesPass implements CompilerPassInterface
             $downloadConfiguration[$key] = [
                 'storage'            => $file['storage'],
                 'upload_destination' => $file['upload_destination'],
-                'upload_dir'         => $file['upload_dir'],
+                'download_base_url'  => $file['download_base_url'],
             ];
         }
 

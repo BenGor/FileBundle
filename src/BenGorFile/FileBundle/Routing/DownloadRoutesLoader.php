@@ -37,7 +37,7 @@ class DownloadRoutesLoader extends RoutesLoader
         $this->routes->add(
             'bengor_file_' . $file . '_download',
             new Route(
-                $config['upload_dir'] . '/{filename}',
+                $config['download_base_url'] . '/{filename}',
                 [
                     '_controller'       => 'BenGorFileBundle:Download:' . $config['storage'],
                     'uploadDestination' => $config['upload_destination'],

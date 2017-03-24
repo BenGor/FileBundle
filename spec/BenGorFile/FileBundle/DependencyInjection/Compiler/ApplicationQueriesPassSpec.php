@@ -47,7 +47,7 @@ class ApplicationQueriesPassSpec extends ObjectBehavior
                     'data_transformer'   => 'BenGorFile\\File\\Application\\DataTransformer\\FileDTODataTransformer',
                     'storage'            => 'gaufrette',
                     'upload_destination' => 'images',
-                    'upload_dir'         => '/images',
+                    'download_base_url'         => '/images',
                 ],
             ],
         ]);
