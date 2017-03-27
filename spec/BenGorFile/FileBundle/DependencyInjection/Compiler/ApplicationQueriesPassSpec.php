@@ -77,6 +77,15 @@ class ApplicationQueriesPassSpec extends ObjectBehavior
             'bengor.file.application.query.file_of_name'
         )->shouldBeCalled()->willReturn($container);
 
+        $container->setDefinition(
+            'bengor.file.application.query.all_files',
+            Argument::type(Definition::class)
+        )->shouldBeCalled()->willReturn($definition);
+        $container->setAlias(
+            'bengor_file.file.all_query',
+            'bengor.file.application.query.all_files'
+        )->shouldBeCalled()->willReturn($container);
+
         $this->process($container);
     }
 }

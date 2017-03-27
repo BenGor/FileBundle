@@ -1,4 +1,4 @@
-#Service Reference
+# Service Reference
 
 All available services are listed below with their associated class.
 ```bash
@@ -16,6 +16,7 @@ bengor_file.file.factory                 BenGorFile\File\Infrastructure\Domain\M
 
 bengor_file.file.by_id_query             BenGorFile\File\Application\Query\FileOfIdHandler
 bengor_file.file.by_name_query           BenGorFile\File\Application\Query\FileOfNameHandler
+bengor_file.file.all_query               BenGorFile\File\Application\Query\AllFilesHandler
 
 bengor_file.file.filesystem              BenGorFile\GaufretteFilesystemBridge\Infrastructure\Domain\Model\GaufretteFilesystem
                                          BenGorFile\SymfonyFilesystemBridge\Infrastructure\Domain\Model\SymfonyFilesystem
@@ -34,7 +35,8 @@ bengor.file.application.command.upload_file        BenGorFile\File\Application\C
 
 bengor.file.application.data_transformer.file_dto  BenGorFile\File\Application\DataTransformer\FileDTODataTransformer
 
-bengor.file.application.query.file_of_id           BenGorFile\File\Application\Query\FileOfIdQuery
-bengor.file.application.query.file_of_name         BenGorFile\File\Application\Query\FileOfNameQuery
+bengor.file.application.query.file_of_id           BenGorFile\File\Application\Query\FileOfIdHandler
+bengor.file.application.query.file_of_name         BenGorFile\File\Application\Query\FileOfNameHandler
+bengor.file.application.query.all_files            BenGorFile\File\Application\Query\AllFilesHandler
 ```
 - Back to the [index](index.md).
