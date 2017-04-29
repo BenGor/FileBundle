@@ -1,4 +1,4 @@
-#Storage adapters
+# Storage adapters
 
 The following storage adapters are available:
 

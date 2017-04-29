@@ -1,4 +1,4 @@
-#Limit mime types
+# Limit mime types
 
 The domain has a value object named FileMimeType. This VO contains a list of all the possible mime types accepted by
 Apache. However, sometimes you want to become more restrict allowed mime types of your *File* so, keeping this case in

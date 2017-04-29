@@ -1,4 +1,4 @@
-#BenGorFileBundle documentation
+# BenGorFileBundle documentation
 
 * [Basic configuration](basic_configuration.md)
 * Usage

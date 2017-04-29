@@ -1,4 +1,4 @@
-#Updating existing use case
+# Updating existing use case
 
 ```php
 // src/AppBundle/Entity/Image.php
