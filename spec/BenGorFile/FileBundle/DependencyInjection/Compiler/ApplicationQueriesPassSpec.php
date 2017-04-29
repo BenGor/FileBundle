@@ -12,7 +12,6 @@
 
 namespace spec\BenGorFile\FileBundle\DependencyInjection\Compiler;
 
-use BenGorFile\File\Domain\Model\File;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationQueriesPass;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -78,12 +77,21 @@ class ApplicationQueriesPassSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn($container);
 
         $container->setDefinition(
-            'bengor.file.application.query.all_files',
+            'bengor.file.application.query.count_files',
             Argument::type(Definition::class)
         )->shouldBeCalled()->willReturn($definition);
         $container->setAlias(
-            'bengor_file.file.all_query',
-            'bengor.file.application.query.all_files'
+            'bengor_file.count_files_query',
+            'bengor.file.application.query.count_files'
+        )->shouldBeCalled()->willReturn($container);
+
+        $container->setDefinition(
+            'bengor.file.application.query.filter_files',
+            Argument::type(Definition::class)
+        )->shouldBeCalled()->willReturn($definition);
+        $container->setAlias(
+            'bengor_file.filter_files_query',
+            'bengor.file.application.query.filter_files'
         )->shouldBeCalled()->willReturn($container);
 
         $this->process($container);

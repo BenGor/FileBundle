@@ -43,7 +43,7 @@ class SuffixNumberFileCommandBuilder extends UploadFileCommandBuilder
      */
     public function register($file)
     {
-        if ($this->configuration['upload_strategy'] != 'suffix_number') {
+        if ($this->configuration['upload_strategy'] !== 'suffix_number') {
             return parent::register($file);
         }
 

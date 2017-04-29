@@ -16,7 +16,8 @@ bengor_file.file.factory                 BenGorFile\File\Infrastructure\Domain\M
 
 bengor_file.file.by_id_query             BenGorFile\File\Application\Query\FileOfIdHandler
 bengor_file.file.by_name_query           BenGorFile\File\Application\Query\FileOfNameHandler
-bengor_file.file.all_query               BenGorFile\File\Application\Query\AllFilesHandler
+bengor_file.count_files_query            BenGorFile\File\Application\Query\CountFilesHandler
+bengor_file.filter_files_query           BenGorFile\File\Application\Query\FilterFilesHandler
 
 bengor_file.file.filesystem              BenGorFile\GaufretteFilesystemBridge\Infrastructure\Domain\Model\GaufretteFilesystem
                                          BenGorFile\SymfonyFilesystemBridge\Infrastructure\Domain\Model\SymfonyFilesystem
@@ -37,6 +38,7 @@ bengor.file.application.data_transformer.file_dto  BenGorFile\File\Application\D
 
 bengor.file.application.query.file_of_id           BenGorFile\File\Application\Query\FileOfIdHandler
 bengor.file.application.query.file_of_name         BenGorFile\File\Application\Query\FileOfNameHandler
-bengor.file.application.query.all_files            BenGorFile\File\Application\Query\AllFilesHandler
+bengor.file.application.query.count_files          BenGorFile\File\Application\Query\CountFilesHandler
+bengor.file.application.query.filter_files         BenGorFile\File\Application\Query\FilterFilesHandler
 ```
 - Back to the [index](index.md).

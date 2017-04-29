@@ -12,15 +12,15 @@
 
 namespace BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query;
 
-use BenGorFile\File\Application\Query\AllFilesHandler;
+use BenGorFile\File\Application\Query\CountFilesHandler;
 use Symfony\Component\DependencyInjection\Definition;
 
 /**
- * All files query builder.
+ * Counts files query builder.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class AllFilesQueryBuilder extends QueryBuilder
+class CountFilesQueryBuilder extends QueryBuilder
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class AllFilesQueryBuilder extends QueryBuilder
         $this->container->setDefinition(
             $this->definitionName($file),
             new Definition(
-                AllFilesHandler::class, [
+                CountFilesHandler::class, [
                     $this->container->getDefinition(
                         'bengor.file.infrastructure.persistence.' . $file . '_repository'
                     ),
                     $this->container->getDefinition(
-                        'bengor.file.application.data_transformer.' . $file . '_dto'
+                        'bengor.file.infrastructure.persistence.' . $file . '_specification_factory'
                     ),
                 ]
             )
@@ -47,7 +47,7 @@ class AllFilesQueryBuilder extends QueryBuilder
      */
     protected function definitionName($file)
     {
-        return 'bengor.file.application.query.all_' . $file . 's';
+        return 'bengor.file.application.query.count_' . $file . 's';
     }
 
     /**
@@ -55,6 +55,6 @@ class AllFilesQueryBuilder extends QueryBuilder
      */
     protected function aliasDefinitionName($file)
     {
-        return 'bengor_file.' . $file . '.all_query';
+        return 'bengor_file.count_' . $file . 's_query';
     }
 }
