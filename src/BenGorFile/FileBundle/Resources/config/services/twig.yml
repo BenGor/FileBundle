@@ -11,6 +11,7 @@ services:
         class: BenGorFile\FileBundle\Twig\DownloadExtension
         arguments:
             - '@router'
+            - []
         public: false
         tags:
             - { name: twig.extension }

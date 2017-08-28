@@ -12,10 +12,12 @@
 
 namespace BenGorFile\FileBundle\Twig;
 
+use BenGorFile\File\Application\Query\FileOfIdQuery;
+use BenGorFile\File\Domain\Model\FileDoesNotExistException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * File download Twig function.
+ * File download by id Twig function.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
  */
@@ -29,13 +31,22 @@ class DownloadExtension extends \Twig_Extension
     private $urlGenerator;
 
     /**
+     * The file handlers.
+     *
+     * @var array
+     */
+    private $handlers;
+
+    /**
      * Constructor.
      *
      * @param UrlGeneratorInterface $anUrlGenerator The URL generator
+     * @param array                 $handlers       The file handlers
      */
-    public function __construct(UrlGeneratorInterface $anUrlGenerator)
+    public function __construct(UrlGeneratorInterface $anUrlGenerator, array $handlers)
     {
         $this->urlGenerator = $anUrlGenerator;
+        $this->handlers = $handlers;
     }
 
     /**
@@ -49,18 +60,25 @@ class DownloadExtension extends \Twig_Extension
     }
 
     /**
-     * Generates the url that returns the file of given file type and name.
+     * Generates the url that returns the file of given file type and file.
      *
      * @param string $fileClass The file type type
-     * @param string $name      The file name
+     * @param string $q         The file query
      *
      * @return string
      */
-    public function download($fileClass, $name)
+    public function download($fileClass, $q)
     {
+        try {
+            $file = $this->handlers[$fileClass]->__invoke(new FileOfIdQuery($q));
+            $filename = $file['file_name'];
+        } catch (FileDoesNotExistException $exception) {
+            $filename = $q;
+        }
+
         return $this->urlGenerator->generate(
             'bengor_file_' . $fileClass . '_download',
-            ['filename' => $name],
+            ['filename' => $filename],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
     }
