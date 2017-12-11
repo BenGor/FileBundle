@@ -14,3 +14,12 @@ services:
         public: false
         tags:
             - { name: routing.loader }
+
+    bengor.file_bundle.routing.api_get_files_routes_loader:
+        class: BenGorFile\FileBundle\Routing\Api\GetFilesRoutesLoader
+        arguments:
+            - []
+        public: false
+        tags:
+            - { name: routing.loader }
+
