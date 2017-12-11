@@ -12,4 +12,14 @@ ben_gor_file:
             upload_destination: '%kernel.root_dir%/../web'  # In Gaufrette storage is a configured Gaufrette filesystem
             download_base_url: /files
             data_transformer: BenGorFile\File\Application\DataTransformer\FileDTODataTransformer
+            use_cases:
+                get_files:
+                    enabled: false
+                    api_enabled: true
+            routes:
+                get_files:
+                    name: bengor_file_file_get_files
+                    path: /files
+                    api_name: bengor_file_file_api_get_files
+                    api_path: /api/files
 ```

@@ -88,6 +88,18 @@ abstract class RoutesLoaderBuilder
             if (null === $config['download_base_url']) {
                 $configuration[$key]['download_base_url'] = $this->defaultUploadDir($key);
             }
+            if (null === $config['name']) {
+                $configuration[$key]['name'] = $this->defaultRouteName($key);
+            }
+            if (null === $config['path']) {
+                $configuration[$key]['path'] = $this->defaultRoutePath($key);
+            }
+            if (null === $config['api_name']) {
+                $configuration[$key]['api_name'] = $this->defaultApiRouteName($key);
+            }
+            if (null === $config['api_path']) {
+                $configuration[$key]['api_path'] = $this->defaultApiRoutePath($key);
+            }
         }
 
         return $configuration;
@@ -110,4 +122,57 @@ abstract class RoutesLoaderBuilder
      * @return string
      */
     abstract protected function definitionName();
+
+    /**
+     * Gets the route loader's default route name.
+     *
+     * @param string $file The file name
+     *
+     * @return string
+     */
+    protected function defaultRouteName($file)
+    {
+    }
+
+    /**
+     * Gets the route loader's default route path.
+     *
+     * @param string $file The file name
+     *
+     * @return string
+     */
+    protected function defaultRoutePath($file)
+    {
+    }
+
+    /**
+     * Gets the service definition API name.
+     *
+     * @return string
+     */
+    protected function definitionApiName()
+    {
+    }
+
+    /**
+     * Gets the route loader's default API route name.
+     *
+     * @param string $file The file name
+     *
+     * @return string
+     */
+    protected function defaultApiRouteName($file)
+    {
+    }
+
+    /**
+     * Gets the route loader's default API route path.
+     *
+     * @param string $file The file name
+     *
+     * @return string
+     */
+    protected function defaultApiRoutePath($file)
+    {
+    }
 }

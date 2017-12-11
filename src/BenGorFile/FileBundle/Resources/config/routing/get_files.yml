@@ -6,8 +6,6 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-bengor_file_download:
-    resource: download.yml
-
-bengor_file_get_files:
-    resource: get_files.yml
+bengor_file_get_files_api_routes:
+    resource: .
+    type: bengor_file_get_files_api
