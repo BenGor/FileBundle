@@ -67,12 +67,26 @@ abstract class RoutesLoader implements LoaderInterface
         if (true === $this->loaded) {
             throw new \RuntimeException('Do not add this loader twice');
         }
-        if (empty($this->config)) {
-            return;
-        }
 
         $this->routes = new RouteCollection();
+        if (empty($this->config)) {
+            return $this->routes;
+        }
+
         foreach ($this->config as $file => $config) {
+            if (false === array_key_exists('enabled', $config)) {
+                $this->register($file, $config);
+                continue;
+            }
+            if (false === $config['enabled']) {
+                continue;
+            }
+            if (true === array_key_exists('type', $config)) {
+                $config['type'] = $this->sanitize($config['type']);
+            }
+            if (true === array_key_exists('api_type', $config)) {
+                $config['api_type'] = $this->sanitize($config['api_type']);
+            }
             $this->register($file, $config);
         }
         $this->loaded = true;
@@ -95,10 +109,22 @@ abstract class RoutesLoader implements LoaderInterface
     }
 
     /**
+     * Sanitizes and validates the given specification name.
+     *
+     * @param string $specificationName The specification name
+     *
+     * @return string
+     */
+    protected function sanitize($specificationName)
+    {
+        return $specificationName;
+    }
+
+    /**
      * Registers a new route inside route
      * collection with the given params.
      *
-     * @param string $file   The file name
+     * @param string $file   The user name
      * @param array  $config The user configuration array
      */
     abstract protected function register($file, array $config);

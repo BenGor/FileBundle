@@ -55,13 +55,22 @@ abstract class RoutesLoaderBuilder
      */
     public function build()
     {
-        if (!$this->container->hasDefinition($this->definitionName())) {
-            return;
+        if ($this->container->hasDefinition($this->definitionName())) {
+            $this->container->getDefinition(
+                $this->definitionName()
+            )->replaceArgument(0, array_unique($this->configuration, SORT_REGULAR));
         }
-        $this->container->getDefinition(
-            $this->definitionName()
-        )->replaceArgument(0, array_unique($this->configuration, SORT_REGULAR));
-
+        if ($this->container->hasDefinition($this->definitionApiName())) {
+            foreach ($this->configuration as $key => $config) {
+                $this->configuration[$key]['enabled'] = $config['api_enabled'];
+                if (array_key_exists('type', $config)) {
+                    $this->configuration[$key]['type'] = $config['api_type'];
+                }
+            }
+            $this->container->getDefinition(
+                $this->definitionApiName()
+            )->replaceArgument(0, array_unique($this->configuration, SORT_REGULAR));
+        }
         return $this->container;
     }
 
@@ -85,9 +94,6 @@ abstract class RoutesLoaderBuilder
     protected function sanitize(array $configuration)
     {
         foreach ($configuration as $key => $config) {
-            if (null === $config['download_base_url']) {
-                $configuration[$key]['download_base_url'] = $this->defaultUploadDir($key);
-            }
             if (null === $config['name']) {
                 $configuration[$key]['name'] = $this->defaultRouteName($key);
             }
