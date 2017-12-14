@@ -55,13 +55,22 @@ abstract class RoutesLoaderBuilder
      */
     public function build()
     {
-        if (!$this->container->hasDefinition($this->definitionName())) {
-            return;
+        if ($this->container->hasDefinition($this->definitionName())) {
+            $this->container->getDefinition(
+                $this->definitionName()
+            )->replaceArgument(0, array_unique($this->configuration, SORT_REGULAR));
         }
-        $this->container->getDefinition(
-            $this->definitionName()
-        )->replaceArgument(0, array_unique($this->configuration, SORT_REGULAR));
-
+        if ($this->container->hasDefinition($this->definitionApiName())) {
+            foreach ($this->configuration as $key => $config) {
+                $this->configuration[$key]['enabled'] = $config['api_enabled'];
+                if (array_key_exists('type', $config)) {
+                    $this->configuration[$key]['type'] = $config['api_type'];
+                }
+            }
+            $this->container->getDefinition(
+                $this->definitionApiName()
+            )->replaceArgument(0, array_unique($this->configuration, SORT_REGULAR));
+        }
         return $this->container;
     }
 
@@ -85,8 +94,17 @@ abstract class RoutesLoaderBuilder
     protected function sanitize(array $configuration)
     {
         foreach ($configuration as $key => $config) {
-            if (null === $config['download_base_url']) {
-                $configuration[$key]['download_base_url'] = $this->defaultUploadDir($key);
+            if (null === $config['name']) {
+                $configuration[$key]['name'] = $this->defaultRouteName($key);
+            }
+            if (null === $config['path']) {
+                $configuration[$key]['path'] = $this->defaultRoutePath($key);
+            }
+            if (null === $config['api_name']) {
+                $configuration[$key]['api_name'] = $this->defaultApiRouteName($key);
+            }
+            if (null === $config['api_path']) {
+                $configuration[$key]['api_path'] = $this->defaultApiRoutePath($key);
             }
         }
 
@@ -110,4 +128,57 @@ abstract class RoutesLoaderBuilder
      * @return string
      */
     abstract protected function definitionName();
+
+    /**
+     * Gets the route loader's default route name.
+     *
+     * @param string $file The file name
+     *
+     * @return string
+     */
+    protected function defaultRouteName($file)
+    {
+    }
+
+    /**
+     * Gets the route loader's default route path.
+     *
+     * @param string $file The file name
+     *
+     * @return string
+     */
+    protected function defaultRoutePath($file)
+    {
+    }
+
+    /**
+     * Gets the service definition API name.
+     *
+     * @return string
+     */
+    protected function definitionApiName()
+    {
+    }
+
+    /**
+     * Gets the route loader's default API route name.
+     *
+     * @param string $file The file name
+     *
+     * @return string
+     */
+    protected function defaultApiRouteName($file)
+    {
+    }
+
+    /**
+     * Gets the route loader's default API route path.
+     *
+     * @param string $file The file name
+     *
+     * @return string
+     */
+    protected function defaultApiRoutePath($file)
+    {
+    }
 }
