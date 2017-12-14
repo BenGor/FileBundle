@@ -39,7 +39,7 @@ class UploadRoutesLoader extends RoutesLoader
                 [],
                 '',
                 [],
-                ['GET']
+                ['POST']
             )
         );
     }
