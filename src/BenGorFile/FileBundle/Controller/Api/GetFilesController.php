@@ -31,6 +31,10 @@ class GetFilesController extends Controller
 
         $ids = explode(',', $ids);
 
-        return new JsonResponse($this->get('' . $fileClass . '')->__invoke(new ListFilesOfIdsQuery($ids)));
+        return new JsonResponse(
+            $this->get(
+                'bengor.file.application.query.list_' . $fileClass . 'files_of_ids'
+            )->__invoke(new ListFilesOfIdsQuery($ids))
+        );
     }
 }

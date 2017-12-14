@@ -16,6 +16,7 @@ use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\CountFi
 use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\FileOfIdQueryBuilder;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\FileOfNameQueryBuilder;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\FilterFilesQueryBuilder;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\Application\Query\ListFilesOfIdsQueryBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -41,6 +42,7 @@ class ApplicationQueriesPass implements CompilerPassInterface
             (new FilterFilesQueryBuilder($container))->build($key);
             (new FileOfIdQueryBuilder($container))->build($key);
             (new FileOfNameQueryBuilder($container))->build($key);
+            (new ListFilesOfIdsQueryBuilder($container))->build($key);
         }
     }
 }
