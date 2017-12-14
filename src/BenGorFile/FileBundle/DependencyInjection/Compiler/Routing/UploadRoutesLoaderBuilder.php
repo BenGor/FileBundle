@@ -15,35 +15,35 @@ namespace BenGorFile\FileBundle\DependencyInjection\Compiler\Routing;
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class GetFilesRoutesLoaderBuilder extends RoutesLoaderBuilder
+class UploadRoutesLoaderBuilder extends RoutesLoaderBuilder
 {
     protected function definitionName()
     {
-        return 'bengor.file_bundle.routing.get_files_routes_loader';
+        return 'bengor.file_bundle.routing.upload_routes_loader';
     }
 
     protected function defaultRouteName($file)
     {
-        return sprintf('bengor_file_%s_get_files', $file);
+        return sprintf('bengor_file_%s_upload', $file);
     }
 
     protected function defaultRoutePath($file)
     {
-        return sprintf('/%ss', $file);
+        return sprintf('/%ss/upload', $file);
     }
 
     protected function definitionApiName()
     {
-        return 'bengor.file_bundle.routing.api_get_files_routes_loader';
+        return 'bengor.file_bundle.routing.api_upload_routes_loader';
     }
 
     protected function defaultApiRouteName($file)
     {
-        return sprintf('bengor_file_%s_api_get_files', $file);
+        return sprintf('bengor_file_%s_api_upload', $file);
     }
 
     protected function defaultApiRoutePath($file)
     {
-        return sprintf('/api/%ss', $file);
+        return sprintf('/api/%ss/upload', $file);
     }
 }

@@ -13,10 +13,18 @@ ben_gor_file:
             download_base_url: /files
             data_transformer: BenGorFile\File\Application\DataTransformer\FileDTODataTransformer
             use_cases:
+                upload:
+                    enabled: false
+                    api_enabled: true
                 get_files:
                     enabled: false
                     api_enabled: true
             routes:
+                upload:
+                    name: bengor_file_file_upload
+                    path: /files/upload
+                    api_name: bengor_file_file_api_upload
+                    api_path: /api/files/upload
                 get_files:
                     name: bengor_file_file_get_files
                     path: /files

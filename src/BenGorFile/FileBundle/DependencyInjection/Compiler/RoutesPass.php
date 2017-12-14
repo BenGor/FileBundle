@@ -14,6 +14,7 @@ namespace BenGorFile\FileBundle\DependencyInjection\Compiler;
 
 use BenGorFile\FileBundle\DependencyInjection\Compiler\Routing\DownloadRoutesLoaderBuilder;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\Routing\GetFilesRoutesLoaderBuilder;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\Routing\UploadRoutesLoaderBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -35,6 +36,7 @@ class RoutesPass implements CompilerPassInterface
 
         $downloadConfiguration = [];
         $getFilesConfiguration = [];
+        $uploadConfiguration = [];
 
         foreach ($config['file_class'] as $key => $file) {
             $downloadConfiguration[$key] = [
@@ -46,9 +48,15 @@ class RoutesPass implements CompilerPassInterface
                 $file['use_cases']['get_files'],
                 $file['routes']['get_files']
             );
+            $uploadConfiguration[$key] = array_merge(
+                $file['use_cases']['upload'],
+                $file['routes']['upload']
+            );
+            $uploadConfiguration[$key]['upload_strategy'] = $file['upload_strategy'];
         }
 
         (new DownloadRoutesLoaderBuilder($container, $downloadConfiguration))->build();
         (new GetFilesRoutesLoaderBuilder($container, $getFilesConfiguration))->build();
+        (new UploadRoutesLoaderBuilder($container, $uploadConfiguration))->build();
     }
 }
