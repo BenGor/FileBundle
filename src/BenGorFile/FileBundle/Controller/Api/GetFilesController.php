@@ -33,7 +33,7 @@ class GetFilesController extends Controller
 
         return new JsonResponse(
             $this->get(
-                'bengor.file.application.query.list_' . $fileClass . 'files_of_ids'
+                'bengor.file.application.query.list_' . $fileClass . 's_of_ids'
             )->__invoke(new ListFilesOfIdsQuery($ids))
         );
     }
