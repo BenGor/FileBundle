@@ -23,6 +23,14 @@ services:
         tags:
             - { name: routing.loader }
 
+    bengor.file_bundle.routing.api_get_file_routes_loader:
+        class: BenGorFile\FileBundle\Routing\Api\GetFileRoutesLoader
+        arguments:
+            - []
+        public: false
+        tags:
+            - { name: routing.loader }
+
     bengor.file_bundle.routing.api_upload_routes_loader:
         class: BenGorFile\FileBundle\Routing\Api\UploadRoutesLoader
         arguments:

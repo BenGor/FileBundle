@@ -25,6 +25,11 @@ ben_gor_file:
                     path: /files/upload
                     api_name: bengor_file_file_api_upload
                     api_path: /api/files/upload
+                get_file:
+                    name: bengor_file_file_get_file
+                    path: /files/{id}
+                    api_name: bengor_file_file_api_get_file
+                    api_path: /api/files/{id}
                 get_files:
                     name: bengor_file_file_get_files
                     path: /files
