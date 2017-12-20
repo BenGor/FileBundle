@@ -23,9 +23,12 @@ bengor_file.file.filesystem              BenGorFile\GaufretteFilesystemBridge\In
                                          BenGorFile\SymfonyFilesystemBridge\Infrastructure\Domain\Model\SymfonyFilesystem
 
 bengor_file.file.repository              BenGorFile\DoctrineORMBridge\Infrastructure\Persistence\DoctrineORMFileRepository
+                                         BenGorFile\File\Infrastructure\Persistence\Sql\SqlFileRepository
                                          BenGorFile\DoctrineODMMongoDBBridge\Infrastructure\Persistence\DoctrineODMMongoDBFileRepository
-
-
+                                         
+bengor_file.file.specification_factory   BenGorFile\DoctrineORMBridge\Infrastructure\Persistence\DoctrineORMFileSpecificationFactory
+                                         BenGorFile\File\Infrastructure\Persistence\Sql\SqlFileSpecificationFactory
+                                          
 
 // Creates by Symfony DIC to the correct use of the bundle. Please, don't use them.
 
