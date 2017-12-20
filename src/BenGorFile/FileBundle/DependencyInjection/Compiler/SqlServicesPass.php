@@ -39,20 +39,23 @@ class SqlServicesPass implements CompilerPassInterface
             if ('sql' !== $file['persistence']) {
                 continue;
             }
-            $container->setDefinition(
-                'bengor.file.infrastructure.persistence.pdo',
-                (new Definition(
-                    \PDO::class, [
-                        "mysql:host=%database_host%;dbname=%database_name%",
-                        "%database_user%",
-                        "%database_password%",
-                        [],
-                    ]
-                ))->setPublic(false)
-            );
+
+            if (!$container->hasDefinition('bengor.file.infrastructure.persistence.pdo')) {
+                $container->setDefinition(
+                    'bengor.file.infrastructure.persistence.pdo',
+                    (new Definition(
+                        \PDO::class, [
+                            "mysql:host=%database_host%;dbname=%database_name%",
+                            "%database_user%",
+                            "%database_password%",
+                            [],
+                        ]
+                    ))->setPublic(false)
+                );
+            }
 
             $container->setDefinition(
-                'bengor.file.infrastructure.persistence.file_repository',
+                'bengor.file.infrastructure.persistence.' . $key . '_repository',
                 (new Definition(
                     SqlFileRepository::class, [
                         new Reference('bengor.file.infrastructure.persistence.pdo'),
@@ -60,14 +63,22 @@ class SqlServicesPass implements CompilerPassInterface
                 ))->setPublic(false)
             );
 
+            $container->setAlias(
+                'bengor_file.' . $key . '.repository',
+                'bengor.file.infrastructure.persistence.' . $key . '_repository'
+            );
+
             $container->setDefinition(
-                'bengor.file.infrastructure.persistence.file_specification_factory',
+                'bengor.file.infrastructure.persistence.' . $key . '_specification_factory',
                 (new Definition(
                     SqlFileSpecificationFactory::class
                 ))->setPublic(false)
             );
 
-            return;
+            $container->setAlias(
+                'bengor_file.' . $key . '.specification_factory',
+                'bengor.file.infrastructure.persistence.' . $key . '_specification_factory'
+            );
         }
     }
 }
