@@ -17,6 +17,7 @@ use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationDataTransforme
 use BenGorFile\FileBundle\DependencyInjection\Compiler\ApplicationQueriesPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\DomainServicesPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\RoutesPass;
+use BenGorFile\FileBundle\DependencyInjection\Compiler\SqlServicesPass;
 use BenGorFile\FileBundle\DependencyInjection\Compiler\TwigPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -35,6 +36,7 @@ class BenGorFileBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new DomainServicesPass(), PassConfig::TYPE_OPTIMIZE);
+        $container->addCompilerPass(new SqlServicesPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new ApplicationCommandsPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new ApplicationDataTransformersPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new ApplicationQueriesPass(), PassConfig::TYPE_OPTIMIZE);
