@@ -6,7 +6,7 @@ ben_gor_file:
     file_class:
         file:
             class: ~                                        # Required
-            persistence: doctrine_orm                       # Also, it can be "doctrine_odm_mongodb"
+            persistence: doctrine_orm                       # Also, it can be "doctrine_odm_mongodb" or "sql"
             storage: symfony                                # Also, it can be "gaufrette"
             upload_strategy: default                        # Also, it can be "by_hash" or "suffix_number"
             upload_destination: '%kernel.root_dir%/../web'  # In Gaufrette storage is a configured Gaufrette filesystem
