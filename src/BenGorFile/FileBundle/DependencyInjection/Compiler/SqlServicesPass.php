@@ -40,7 +40,7 @@ class SqlServicesPass implements CompilerPassInterface
                 continue;
             }
             $container->setDefinition(
-                'bengor.file.pdo',
+                'bengor.file.infrastructure.persistence.pdo',
                 (new Definition(
                     \PDO::class, [
                         "mysql:host=%database_host%;dbname=%database_name%",
@@ -55,7 +55,7 @@ class SqlServicesPass implements CompilerPassInterface
                 'bengor.file.infrastructure.persistence.file_repository',
                 (new Definition(
                     SqlFileRepository::class, [
-                        new Reference('bengor.file.pdo'),
+                        new Reference('bengor.file.infrastructure.persistence.pdo'),
                     ]
                 ))->setPublic(false)
             );
