@@ -13,7 +13,9 @@
 namespace BenGorFile\FileBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * File download controller.
@@ -45,6 +47,10 @@ class DownloadController extends Controller
      */
     public function symfonyAction($filename, $uploadDestination)
     {
-        return new BinaryFileResponse($uploadDestination . '/' . $filename);
+        try {
+            return new BinaryFileResponse($uploadDestination . '/' . $filename);
+        } catch (FileNotFoundException $exception) {
+            throw new NotFoundHttpException();
+        }
     }
 }
